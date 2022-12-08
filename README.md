@@ -1,7 +1,7 @@
 # RestaurantDelivery
 
 
-Front-End set-up steps:
+Front End set-up steps:
 
 in the frontend folder, run
 
