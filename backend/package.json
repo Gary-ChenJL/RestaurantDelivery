@@ -8,9 +8,6 @@
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "nodemon": "^2.0.7"
-  },
   "dependencies": {
     "body-parser": "^1.19.0",
     "connect": "^3.7.0",
