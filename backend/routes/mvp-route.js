@@ -3,8 +3,8 @@ const mvpController = require("../controllers/mvp-controllers");
 
 const router = express.Router();
 
-router.post("/worker", mvpController.addWorkerRole);
+router.post("/employee/worker", mvpController.addWorkerRole);
 
-router.post("/ingredient", mvpController.addIngredient);
+router.post("/payload/ingredient", mvpController.addIngredient);
 
 module.exports = router;
