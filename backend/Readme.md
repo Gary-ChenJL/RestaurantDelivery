@@ -53,4 +53,12 @@ successful output format
     "success": true
 }
 
+sample frontend axios POST request:
+
+axios.post("http://localhost:5000/mvp/employee/worker", {
+                    username: "testusername"
+                })
+                .catch((error) => {
+                    alert(error.response.data.message);
+                });
 ```
