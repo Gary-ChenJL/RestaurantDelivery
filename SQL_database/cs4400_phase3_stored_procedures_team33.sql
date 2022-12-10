@@ -23,7 +23,11 @@ delimiter //
 create procedure add_owner (in ip_username varchar(40), in ip_first_name varchar(100),
 	in ip_last_name varchar(100), in ip_address varchar(500), in ip_birthdate date)
 sp_main: begin
-	if (select count(*) from users where username = ip_username)>=1 then leave sp_main; end if;
+	if (select count(*) from users where username = ip_username)>=1 
+    or exists(select * from employees where username = ip_username)
+    then 
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Call failed, inputs failed to satisfy procedure requirements';
+    leave sp_main; end if;
 	insert into users values (ip_username, ip_first_name, ip_last_name, ip_address, ip_birthdate);
     insert into restaurant_owners values (ip_username);
     -- alter table employees add constraint check_owner check (username <> ip_username);
@@ -44,7 +48,10 @@ create procedure add_employee (in ip_username varchar(40), in ip_first_name varc
     in ip_salary integer)
 sp_main: begin
 	if (select count(*) from employees where username = ip_username)>=1 
-    or (select count(*) from employees where taxID = ip_taxID)>=1 then leave sp_main; end if;
+    or (select count(*) from employees where taxID = ip_taxID)>=1 
+    then 
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Call failed, inputs failed to satisfy procedure requirements';
+    leave sp_main; end if;
     insert into users values (ip_username, ip_first_name, ip_last_name, ip_address, ip_birthdate);
 	insert into employees values (ip_username, ip_taxID, ip_hired, ip_employee_experience, ip_salary);
     -- ensure new owner has a unique username
@@ -78,7 +85,10 @@ drop procedure if exists add_worker_role;
 delimiter //
 create procedure add_worker_role (in ip_username varchar(40))
 sp_main: begin
-	if (select count(*) from employees where username = ip_username)=0 then leave sp_main; end if;
+	if (select count(*) from employees where username = ip_username)=0 
+    then 
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Call failed, inputs failed to satisfy procedure requirements';
+    leave sp_main; end if;
 	insert into workers values (ip_username);
     -- ensure new employee exists
 end //
@@ -94,7 +104,9 @@ delimiter //
 create procedure add_ingredient (in ip_barcode varchar(40), in ip_iname varchar(100),
 	in ip_weight integer)
 sp_main: begin
-	if (select count(*) from ingredients where iname = ip_iname)>=1 then leave sp_main; end if;
+	if (select count(*) from ingredients where iname = ip_iname)>=1 
+    then SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Call failed, inputs failed to satisfy procedure requirements';
+    leave sp_main; end if;
 	insert into ingredients values (ip_barcode, ip_iname, ip_weight);
 	-- ensure new ingredient doesn't already exist
 end //
@@ -115,7 +127,10 @@ create procedure add_drone (in ip_id varchar(40), in ip_tag integer, in ip_fuel 
 sp_main: begin
 	if (select count(*) from drones where id = ip_id and tag=ip_tag)>=1 
     or (select count(*) from delivery_services where id = ip_id)=0 
-    or (select count(*) from pilots where username = ip_flown_by)=0 then leave sp_main; end if;
+    or (select count(*) from pilots where username = ip_flown_by)=0 
+    then 
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Call failed, inputs failed to satisfy procedure requirements';
+    leave sp_main; end if;
 	insert into drones values (ip_id, ip_tag, ip_fuel, ip_capacity, ip_sales, ip_flown_by, null, null, 
 		(select home_base from delivery_services where id = ip_id));
 	-- ensure new drone doesn't already exist
@@ -225,7 +240,9 @@ sp_main: begin
 	or (select count(*) from delivery_services where id = ip_id) = 0
 	or (select count(*) from delivery_services where manager = ip_username) >= 1
 	or (select count(*) from drones where flown_by = ip_username) >= 1
-		then leave sp_main; end if;
+		then 
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Call failed, inputs failed to satisfy procedure requirements';
+        leave sp_main; end if;
 	insert into work_for values (ip_username, ip_id);
 
 end //
@@ -248,7 +265,9 @@ sp_main: begin
 	if (select count(*) from work_for where (username = ip_username and id = ip_id)) = 0
 	or (select count(*) from delivery_services where manager = ip_username) >= 1
 	or (select count(*) from drones where flown_by = ip_username) >= 1
-		then leave sp_main; end if;
+		then 
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Call failed, inputs failed to satisfy procedure requirements';
+        leave sp_main; end if;
 	delete from work_for where username = ip_username;
 end //
 delimiter ;
@@ -553,9 +572,13 @@ delimiter //
 create procedure remove_pilot_role (in ip_username varchar(40))
 sp_main: begin
 	if (select count(*) from pilots where username = ip_username)=0 
-    or (select count(*) from drones where flown_by = ip_username)>=1 then leave sp_main; end if;
+    or (select count(*) from drones where flown_by = ip_username)>=1 
+    then SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Call failed, inputs failed to satisfy procedure requirements';
+    leave sp_main; end if;
 	delete from pilots where username = ip_username;
-    if (select count(*) from workers where username = ip_username)>=1 then leave sp_main; end if;
+    if (select count(*) from workers where username = ip_username)>=1 
+    then SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Call failed, inputs failed to satisfy procedure requirements';SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Call failed, inputs failed to satisfy procedure requirements';
+    leave sp_main; end if;
     delete from employees where username = ip_username;
     delete from users where username = ip_username;
 	-- ensure that the pilot exists

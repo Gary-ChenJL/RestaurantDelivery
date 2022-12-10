@@ -1,7 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const mvpRoute = require("./routes/mvp-route");
+const usersRoute = require("./routes/users-route");
+const servicesRoute = require("./routes/services-route");
 
 const app = express();
 app.use(cors());
@@ -21,7 +22,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/mvp", mvpRoute);
+app.use("/users", usersRoute);
+app.use("/services", servicesRoute);
 
 app.use((req, res, next) => {
   const error = new Error("Could not find the route", 404);
