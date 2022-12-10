@@ -58,7 +58,9 @@ successful output format
 {
     "success": true
 }
+```
 
+```js
 sample frontend axios POST request:
 {
 axios.post("http://localhost:5000/users/employee/worker", {
@@ -84,6 +86,9 @@ successful output format
         ...
     ]
 }
+```
+
+```js
 sample frontend axios GET request:
 {
 axios.get("http://localhost:5000/users/view/pilot")
