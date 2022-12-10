@@ -41,7 +41,14 @@ To initialize the database，run cs4400_database_v2 schema_and_data.mysql in the
 
 When sending request from frontend，put data in request body
 
-1. **/mvp/employee/worker**   POST
+<br />
+
+Note: when using routes from <mark>users-route.js</mark>, add <mark>/users/...</mark> to routes;\
+from <mark>services-route.js</mark>, add <mark>/services/...</mark> to routes;\
+from <mark>locations-route.js</mark>, add <mark>/locations/...</mark> to routes
+
+
+1. **/users/employee/worker**   POST
 ```json
 sample input format:
 {
@@ -55,7 +62,7 @@ successful output format
 
 sample frontend axios POST request:
 {
-axios.post("http://localhost:5000/mvp/employee/worker", {
+axios.post("http://localhost:5000/users/employee/worker", {
                     username: "testusername"
                 })
                 .catch((error) => {
@@ -63,3 +70,4 @@ axios.post("http://localhost:5000/mvp/employee/worker", {
                 });
 }
 ```
+2. **
