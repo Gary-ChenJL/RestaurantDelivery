@@ -131,6 +131,24 @@ const removeDrone = async (req, res, next) => {
     });
 };
 
+const displayServiceView = async (req, res, next) => {
+    let sql = `select * FROM restaurant_supply_express.display_service_view`;
+    pool.query(sql, (err, result) => {
+        if (err) return next(new HttpError(err.message, 500));
+        res.status(200).json({result});
+        console.log(result.length);
+    })
+};
+
+const displayIngredientView = async (req, res, next) => {
+    let sql = `select * FROM restaurant_supply_express.display_ingredient_view`;
+    pool.query(sql, (err, result) => {
+        if (err) return next(new HttpError(err.message, 500));
+        res.status(200).json({result});
+        console.log(result.length);
+    })
+};
+
 exports.addIngredient = addIngredient;
 exports.addDrone = addDrone;
 exports.addService = addService;
@@ -144,3 +162,5 @@ exports.flyDrone = flyDrone;
 exports.purchaseIngredient = purchaseIngredient;
 exports.removeIngredient = removeIngredient;
 exports.removeDrone = removeDrone;
+exports.displayServiceView = displayServiceView;
+exports.displayIngredientView = displayIngredientView;

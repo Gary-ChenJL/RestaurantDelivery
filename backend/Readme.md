@@ -36,7 +36,6 @@ To initialize the database，run cs4400_database_v2 schema_and_data.mysql in the
 
 <br />
 
-
 ### Backend API
 
 When sending request from frontend，put data in request body
@@ -70,4 +69,112 @@ axios.post("http://localhost:5000/users/employee/worker", {
                 });
 }
 ```
-2. **
+2. **/users/view/pilot** GET
+```json
+successful output format
+{
+    "result": [
+        {
+            "username": "agarcia7",
+            "licenseID": "610623",
+            "experience": 38,
+            "num_drones": 4,
+            "num_locations": 2
+        }, 
+        ...
+    ]
+}
+sample frontend axios GET request:
+{
+axios.get("http://localhost:5000/users/view/pilot")
+                .then((res)=> {
+                    const data = res.data;
+                })
+                .catch((error) => {
+                    alert(error.response.data.message);
+                });
+}
+```
+<br />
+
+### All Routes
+
+1. **Procedure routes**  
+
+    <mark>/users</mark> routes:
+    ``` 
+    add_worker_role: /employee/worker
+
+    add_owner: /owners
+
+    add_pilot: /pilot/add
+
+    add_employee: /employee/add
+
+    hire_employee: /employee/hire
+
+    fire_employee: /employee/fire
+
+    remove_pilot: /pilot/remove
+    ```
+
+    <mark>/services</mark> routes:
+
+    ```
+    add_ingredient: /ingredient/add
+
+    add_drone: /drone/add
+
+    add_service: /add
+
+    manage_service: /manage
+
+    takeover_drone: /drone/takeover
+
+    join_swarm: /drone/joinswarm
+
+    leave_swarm: /drone/leaveswarm
+
+    load_drone: /drone/load
+
+    refuel_drone: /drone/refuel
+
+    fly_drone: /drone/fly
+
+    purchase_ingredient: /ingredient/purchase
+
+    remove_ingredient: /ingredient/remove
+
+    remove_drone: /drone/remove
+    ```
+
+    <mark> /locations </mark> routes:
+    ```
+    add_restaurant: /restaurant/add
+
+    add_location: /add
+
+    start_funding: /restaurant/fund
+    ```
+
+2. **View routes**
+
+    <mark>/users</mark> routes:
+    ```
+    display_owner_view: /view/owner
+
+    display_employee_view: /view/employee
+
+    display_pilot_view: /view/pilot
+    ```
+
+    <mark>/services</mark> routes:
+    ```
+    display_ingredient_view: /view/ingredient
+
+    display_service_view: /view/service
+    ```
+    <mark> /locations </mark> routes:
+    ```
+    display_location_view: /view/location
+    ```

@@ -17,4 +17,10 @@ router.post("/employee/fire", usersController.fireEmployee);
 
 router.post("/pilot/remove", usersController.removePilotRole);
 
+router.get("/view/owner", usersController.displayOwnerView);
+
+router.get("/view/employee", usersController.displayEmployeeView);
+
+router.get("/view/pilot", usersController.displayPilotView);
+
 module.exports = router;

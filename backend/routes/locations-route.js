@@ -9,4 +9,6 @@ router.post("/add", locationsController.addLocation);
 
 router.post("/restaurant/fund", locationsController.startFunding);
 
+router.get("/view", locationsController.displayLocationView);
+
 module.exports = router;

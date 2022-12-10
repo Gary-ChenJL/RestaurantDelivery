@@ -30,6 +30,17 @@ const startFunding = async (req, res, next) => {
     });
 };
 
+const displayLocationView = async (req, res, next) => {
+    let sql = `select * FROM restaurant_supply_express.display_ingredient_view`;
+    pool.query(sql, (err, result) => {
+        if (err) return next(new HttpError(err.message, 500));
+        res.status(200).json({result});
+        console.log(result.length);
+    })
+};
+
+
 exports.addRestaurant = addRestaurant;
 exports.addLocation = addLocation;
 exports.startFunding = startFunding;
+exports.displayLocationView = displayLocationView;

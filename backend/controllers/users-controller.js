@@ -78,6 +78,34 @@ const removePilotRole = async (req, res, next) => {
     });
 };
 
+const displayOwnerView = async (req, res, next) => {
+    let sql = `select * FROM restaurant_supply_express.display_owner_view`;
+    pool.query(sql, (err, result) => {
+        if (err) return next(new HttpError(err.message, 500));
+        res.status(200).json({result});
+        console.log(result.length);
+    })
+};
+
+const displayEmployeeView = async (req, res, next) => {
+    let sql = `select * FROM restaurant_supply_express.display_employee_view`;
+    pool.query(sql, (err, result) => {
+        if (err) return next(new HttpError(err.message, 500));
+        res.status(200).json({result});
+        console.log(result.length);
+    })
+};
+
+
+const displayPilotView = async (req, res, next) => {
+    let sql = `select * FROM restaurant_supply_express.display_pilot_view`;
+    pool.query(sql, (err, result) => {
+        if (err) return next(new HttpError(err.message, 500));
+        res.status(200).json({result});
+        console.log(result.length);
+    })
+};
+
 exports.addWorkerRole = addWorkerRole;
 exports.addOwner = addOwner;
 exports.addPilotRole = addPilotRole;
@@ -85,3 +113,6 @@ exports.addEmployee = addEmployee;
 exports.hireEmployee = hireEmployee;
 exports.fireEmployee = fireEmployee;
 exports.removePilotRole = removePilotRole; 
+exports.displayOwnerView = displayOwnerView;
+exports.displayEmployeeView = displayEmployeeView;
+exports.displayPilotView = displayPilotView;

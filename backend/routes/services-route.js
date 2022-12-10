@@ -29,4 +29,8 @@ router.post("/ingredient/remove", servicesController.removeIngredient);
 
 router.post("/drone/remove", servicesController.refuelDrone);
 
+router.get("/view/service", servicesController.displayServiceView);
+
+router.get("/view/ingredient", servicesController.displayIngredientView);
+
 module.exports = router;
