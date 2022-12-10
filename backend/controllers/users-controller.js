@@ -22,6 +22,18 @@ const addEmployee = async (req, res, next) => {
     });
 };
 
+const addPilotRole = async (req, res, next) => {
+    let sql = `CALL add_pilot_role(?,?,?)`;
+    const { username, licenseID, experience} = req.body;
+    console.log(username);
+    pool.query(sql, [username, licenseID, experience], (err, result) => {
+        if (err) return next(new Error(err.message));
+        return res.status(201)
+                  .json({ success: true });
+    });
+};
+
+
 const addWorkerRole = async (req, res, next) => {
     let sql = `CALL add_worker_role(?)`;
     const { username } = req.body;
@@ -68,6 +80,7 @@ const removePilotRole = async (req, res, next) => {
 
 exports.addWorkerRole = addWorkerRole;
 exports.addOwner = addOwner;
+exports.addPilotRole = addPilotRole;
 exports.addEmployee = addEmployee;
 exports.hireEmployee = hireEmployee;
 exports.fireEmployee = fireEmployee;
