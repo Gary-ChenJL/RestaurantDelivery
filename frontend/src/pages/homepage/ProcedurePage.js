@@ -20,7 +20,7 @@ const ProcedurePage = (props) => {
         <Link
           className={classes.link_click}
 
-          to="/add_owner_page"
+          to="/add_owner"
           style={{ paddingTop: 20, paddingBottom: 20 }}
         >
           add_owner
@@ -168,6 +168,7 @@ const ProcedurePage = (props) => {
           style={{ paddingTop: 15, paddingBottom: 15 }}
           to={"/join_swarm"}
         >
+          
           join_swarm
         </Link>
       </button>
