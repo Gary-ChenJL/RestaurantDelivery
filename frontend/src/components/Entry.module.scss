@@ -1,0 +1,21 @@
+@import "../asset/design.scss";
+
+.entry {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+
+  .label {
+    align-self: center;
+    margin: 5px;
+    font-size: 20px;
+  }
+
+  .input {
+    align-self: center;
+    height: 70%;
+    width: 50%;
+    margin: 5px;
+  }
+}
