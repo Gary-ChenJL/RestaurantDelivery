@@ -1,0 +1,53 @@
+/* Colors */
+$tech-gold: rgb(6, 6, 5);
+$tech-metallic-gold: rgb(0, 0, 0);
+$tech-blue: rgb(0, 48, 87);
+$tech-blue-hovered: rgb(25, 56, 160);
+$list-header-blue: #4473c4;
+
+/* Fonts */
+$tech-font-family: "Avenir", serif;
+
+/* Glocal Designs */
+h1 {
+  font-size: 40px;
+  font-weight: bold;
+  font-family: $tech-font-family;
+  color: $tech-metallic-gold;
+  width: 100px;
+  margin-right: 0;
+}
+
+input {
+  font-family: $tech-font-family;
+  border-radius: 3px;
+  border: 1px solid black;
+
+  &:focus {
+    outline: none;
+    border: 2px solid $tech-blue-hovered;
+  }
+}
+
+h2 {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0;
+  height: 40px;
+  font-family: $tech-font-family;
+}
+
+button {
+  outline: none;
+  border: none;
+  background-color: $tech-blue;
+  color: white;
+  font-family: $tech-font-family;
+  border-radius: 4px;
+  font-size: 20px;
+
+  &:hover {
+    background-color: $tech-blue-hovered;
+    cursor: pointer;
+  }
+}
