@@ -8,43 +8,43 @@ import classes from "./addpilotrolePage.module.scss";
 
 const Addpilotrolepage = (props) => {
 
-    const [AddownerInfo, setAddownerInfo] = useState({
+    const [AddPilotroleInfo, setAddPilotroleInfo] = useState({
       username : "",
-      firstname: "",
-      lastname:""
+      licenseID: "",
+      pilot_experience:""
     }); 
 
     const onChangeUsernameHandler = async (event) => {
-      var temp = AddownerInfo;
+      var temp = AddPilotroleInfo;
       temp[event.target.name] = event.target.value;
-      setAddownerInfo(temp);
-      // console.log(AddownerInfo["username"])
+      setAddPilotroleInfo(temp);
+      // console.log(AddPilotroleInfo["username"])
     }
 
-    const onChangeFirstnameHandler = async (event) => {
-      var temp = AddownerInfo;
+    const onChangeLicenseIDHandler = async (event) => {
+      var temp = AddPilotroleInfo;
       temp[event.target.name] = event.target.value;
-      setAddownerInfo(temp);
-      // console.log(AddownerInfo["firstname"])
+      setAddPilotroleInfo(temp);
+      // console.log(AddPilotroleInfo["firstname"])
     }
 
-    const onChangeLastnameHandler = async (event) => {
-      var temp = AddownerInfo;
+    const onChangePilotexperienceHandler = async (event) => {
+      var temp = AddPilotroleInfo;
       temp[event.target.name] = event.target.value;
-      setAddownerInfo(temp);
-      // console.log(AddownerInfo["lastname"])
+      setAddPilotroleInfo(temp);
+      // console.log(AddPilotroleInfo["lastname"])
     }
 
 
     const onSubmitHandler = () => {
-      console.log(AddownerInfo["username"])
-      console.log(AddownerInfo["firstname"])
-      console.log(AddownerInfo["lastname"])
+      console.log(AddPilotroleInfo["username"])
+      console.log(AddPilotroleInfo["licenseID"])
+      console.log(AddPilotroleInfo["pilot_experience"])
       axios.post("http://localhost:5000/mvp/employee/worker", {
                     
-                    username: AddownerInfo["username"],
-                    firstname:AddownerInfo["firstname"],
-                    lastname:AddownerInfo["lastname"]
+                    username: AddPilotroleInfo["username"],
+                    licenseID:AddPilotroleInfo["licenseID"],
+                    pilot_experience:AddPilotroleInfo["pilot_experience"]
                 })
                 .catch((error) => {
                     alert(error.response.data.message);
@@ -52,30 +52,30 @@ const Addpilotrolepage = (props) => {
     };
     
     return (
-        <div className={classes.addownerPage}>  
+        <div className={classes.addPilotrolePage}>  
             <div className={classes.content}>
                 <h1 className={classes.title}>Add Pilot Role</h1>
                 <div className={classes.entrybox}>
                     
                     <Entry 
-                        text={"username: "}
+                        text={"Username: "}
                         name="username"
                         type="text"
                         onChange={onChangeUsernameHandler}
                     />
 
                     <Entry 
-                        text={"First Name: "}
-                        name="firstname"
+                        text={"License ID: "}
+                        name="licenseID"
                         type="text"
-                        onChange={onChangeFirstnameHandler}
+                        onChange={onChangeLicenseIDHandler}
                     />
 
                     <Entry 
-                        text={"Last Name: "}
-                        name="lastname"
-                        type="text"
-                        onChange={onChangeLastnameHandler}
+                        text={"Pilot Experience: "}
+                        name="pilot_experience"
+                        type="int"
+                        onChange={onChangePilotexperienceHandler}
                     />
                 </div>
                 <div className={classes.buttons}>

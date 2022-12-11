@@ -8,43 +8,72 @@ import classes from "./adddronePage.module.scss";
 
 const Adddronepage = (props) => {
 
-    const [AddownerInfo, setAddownerInfo] = useState({
-      username : "",
-      firstname: "",
-      lastname:""
+    const [AdddroneInfo, setAdddroneInfo] = useState({
+        id: '', 
+        tag: '', 
+        fuel: '', 
+        capacity: '', 
+        sales: '', 
+        flown_by: ''
     }); 
 
-    const onChangeUsernameHandler = async (event) => {
-      var temp = AddownerInfo;
+    const onChangeIdHandler = async (event) => {
+      var temp = AdddroneInfo;
       temp[event.target.name] = event.target.value;
-      setAddownerInfo(temp);
+      setAdddroneInfo(temp);
       // console.log(AddownerInfo["username"])
     }
 
-    const onChangeFirstnameHandler = async (event) => {
-      var temp = AddownerInfo;
+    const onChangeTagHandler = async (event) => {
+      var temp = AdddroneInfo;
       temp[event.target.name] = event.target.value;
-      setAddownerInfo(temp);
+      setAdddroneInfo(temp);
       // console.log(AddownerInfo["firstname"])
     }
+    const onChangeFuelHandler = async (event) => {
+        var temp = AdddroneInfo;
+        temp[event.target.name] = event.target.value;
+        setAdddroneInfo(temp);
+        // console.log(AddownerInfo["firstname"])
+      }
 
-    const onChangeLastnameHandler = async (event) => {
-      var temp = AddownerInfo;
+    const onChangeCapacityHandler = async (event) => {
+      var temp = AdddroneInfo;
       temp[event.target.name] = event.target.value;
-      setAddownerInfo(temp);
+      setAdddroneInfo(temp);
       // console.log(AddownerInfo["lastname"])
     }
 
+    const onChangeSalesHandler = async (event) => {
+        var temp = AdddroneInfo;
+        temp[event.target.name] = event.target.value;
+        setAdddroneInfo(temp);
+        // console.log(AddownerInfo["lastname"])
+      }
+
+      const onChangeFlownbyHandler = async (event) => {
+        var temp = AdddroneInfo;
+        temp[event.target.name] = event.target.value;
+        setAdddroneInfo(temp);
+        // console.log(AddownerInfo["lastname"])
+      }
+
 
     const onSubmitHandler = () => {
-      console.log(AddownerInfo["username"])
-      console.log(AddownerInfo["firstname"])
-      console.log(AddownerInfo["lastname"])
-      axios.post("http://localhost:5000/mvp/employee/worker", {
+      console.log(AdddroneInfo["id"])
+      console.log(AdddroneInfo["tag"])
+      console.log(AdddroneInfo["fuel"])
+      console.log(AdddroneInfo["capacity"])
+      console.log(AdddroneInfo["sales"])
+      console.log(AdddroneInfo["flown_by"])
+      axios.post("http://localhost:5000/services/drone/add", {
                     
-                    username: AddownerInfo["username"],
-                    firstname:AddownerInfo["firstname"],
-                    lastname:AddownerInfo["lastname"]
+                    id: AdddroneInfo["id"],
+                    tag:AdddroneInfo["tag"],
+                    fuel:AdddroneInfo["fuel"],
+                    capacity:AdddroneInfo["capacity"],
+                    sales:AdddroneInfo["sales"],
+                    flown_by:AdddroneInfo["flown_by"]
                 })
                 .catch((error) => {
                     alert(error.response.data.message);
@@ -58,24 +87,42 @@ const Adddronepage = (props) => {
                 <div className={classes.entrybox}>
                     
                     <Entry 
-                        text={"username: "}
-                        name="username"
+                        text={"Service ID: "}
+                        name="id"
                         type="text"
-                        onChange={onChangeUsernameHandler}
+                        onChange={onChangeIdHandler}
                     />
 
                     <Entry 
-                        text={"First Name: "}
-                        name="firstname"
-                        type="text"
-                        onChange={onChangeFirstnameHandler}
+                        text={"Drone Tag: "}
+                        name="tag"
+                        type="int"
+                        onChange={onChangeTagHandler}
                     />
 
                     <Entry 
-                        text={"Last Name: "}
-                        name="lastname"
+                        text={"Fuel: "}
+                        name="fuel"
+                        type="int"
+                        onChange={onChangeFuelHandler}
+                    />
+                    <Entry 
+                        text={"Capacity: "}
+                        name="capacity"
+                        type="int"
+                        onChange={onChangeCapacityHandler}
+                    />
+                    <Entry 
+                        text={"Sales: "}
+                        name="sales"
+                        type="int"
+                        onChange={onChangeSalesHandler}
+                    />
+                    <Entry 
+                        text={"Flown by: "}
+                        name="flown_by"
                         type="text"
-                        onChange={onChangeLastnameHandler}
+                        onChange={onChangeFlownbyHandler}
                     />
                 </div>
                 <div className={classes.buttons}>

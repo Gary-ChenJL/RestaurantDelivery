@@ -8,43 +8,43 @@ import classes from "./addingredientPage.module.scss";
 
 const Addingredientpage = (props) => {
 
-    const [AddownerInfo, setAddownerInfo] = useState({
-      username : "",
-      firstname: "",
-      lastname:""
+    const [AddIngredientInfo, setAddIngredientInfo] = useState({
+      barcode : "",
+      iname: "",
+      weight:""
     }); 
 
-    const onChangeUsernameHandler = async (event) => {
-      var temp = AddownerInfo;
+    const onChangeBarcodeHandler = async (event) => {
+      var temp = AddIngredientInfo;
       temp[event.target.name] = event.target.value;
-      setAddownerInfo(temp);
-      // console.log(AddownerInfo["username"])
+      setAddIngredientInfo(temp);
+      // console.log(AddIngredientInfo["username"])
     }
 
-    const onChangeFirstnameHandler = async (event) => {
-      var temp = AddownerInfo;
+    const onChangeInameHandler = async (event) => {
+      var temp = AddIngredientInfo;
       temp[event.target.name] = event.target.value;
-      setAddownerInfo(temp);
-      // console.log(AddownerInfo["firstname"])
+      setAddIngredientInfo(temp);
+      // console.log(AddIngredientInfo["firstname"])
     }
 
-    const onChangeLastnameHandler = async (event) => {
-      var temp = AddownerInfo;
+    const onChangeWeightHandler = async (event) => {
+      var temp = AddIngredientInfo;
       temp[event.target.name] = event.target.value;
-      setAddownerInfo(temp);
-      // console.log(AddownerInfo["lastname"])
+      setAddIngredientInfo(temp);
+      // console.log(AddIngredientInfo["lastname"])
     }
 
 
     const onSubmitHandler = () => {
-      console.log(AddownerInfo["username"])
-      console.log(AddownerInfo["firstname"])
-      console.log(AddownerInfo["lastname"])
-      axios.post("http://localhost:5000/mvp/employee/worker", {
+      console.log(AddIngredientInfo["barcode"])
+      console.log(AddIngredientInfo["iname"])
+      console.log(AddIngredientInfo["weight"])
+      axios.post("http://localhost:5000/services/ingredient/add", {
                     
-                    username: AddownerInfo["username"],
-                    firstname:AddownerInfo["firstname"],
-                    lastname:AddownerInfo["lastname"]
+                    barcode: AddIngredientInfo["barcode"],
+                    name:AddIngredientInfo["iname"],
+                    weight:AddIngredientInfo["weight"]
                 })
                 .catch((error) => {
                     alert(error.response.data.message);
@@ -58,24 +58,24 @@ const Addingredientpage = (props) => {
                 <div className={classes.entrybox}>
                     
                     <Entry 
-                        text={"username: "}
-                        name="username"
+                        text={"Barcode: "}
+                        name="barcode"
                         type="text"
-                        onChange={onChangeUsernameHandler}
+                        onChange={onChangeBarcodeHandler}
                     />
 
                     <Entry 
-                        text={"First Name: "}
-                        name="firstname"
+                        text={"Name: "}
+                        name="iname"
                         type="text"
-                        onChange={onChangeFirstnameHandler}
+                        onChange={onChangeInameHandler}
                     />
 
                     <Entry 
-                        text={"Last Name: "}
-                        name="lastname"
-                        type="text"
-                        onChange={onChangeLastnameHandler}
+                        text={"Weight: "}
+                        name="weight"
+                        type="int"
+                        onChange={onChangeWeightHandler}
                     />
                 </div>
                 <div className={classes.buttons}>
