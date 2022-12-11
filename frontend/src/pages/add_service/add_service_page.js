@@ -8,43 +8,52 @@ import classes from "./addservicePage.module.scss";
 
 const Addservicepage = (props) => {
 
-    const [AddownerInfo, setAddownerInfo] = useState({
-      username : "",
-      firstname: "",
-      lastname:""
+    const [AddServiceInfo, setAddServiceInfo] = useState({
+      id : "",
+      longname: "",
+      homebase:"",
+      manager:''
     }); 
 
-    const onChangeUsernameHandler = async (event) => {
-      var temp = AddownerInfo;
+    const onChangeIdHandler = async (event) => {
+      var temp = AddServiceInfo;
       temp[event.target.name] = event.target.value;
-      setAddownerInfo(temp);
-      // console.log(AddownerInfo["username"])
+      setAddServiceInfo(temp);
+      // console.log(AddServiceInfo["username"])
     }
 
-    const onChangeFirstnameHandler = async (event) => {
-      var temp = AddownerInfo;
+    const onChangeLongnameHandler = async (event) => {
+      var temp = AddServiceInfo;
       temp[event.target.name] = event.target.value;
-      setAddownerInfo(temp);
-      // console.log(AddownerInfo["firstname"])
+      setAddServiceInfo(temp);
+      // console.log(AddServiceInfo["firstname"])
     }
 
-    const onChangeLastnameHandler = async (event) => {
-      var temp = AddownerInfo;
+    const onChangeHomebaseHandler = async (event) => {
+      var temp = AddServiceInfo;
       temp[event.target.name] = event.target.value;
-      setAddownerInfo(temp);
-      // console.log(AddownerInfo["lastname"])
+      setAddServiceInfo(temp);
+      // console.log(AddServiceInfo["lastname"])
+    }
+    const onChangeManagerHandler = async (event) => {
+        var temp = AddServiceInfo;
+        temp[event.target.name] = event.target.value;
+        setAddServiceInfo(temp);
+        // console.log(AddServiceInfo["lastname"])
     }
 
 
     const onSubmitHandler = () => {
-      console.log(AddownerInfo["username"])
-      console.log(AddownerInfo["firstname"])
-      console.log(AddownerInfo["lastname"])
-      axios.post("http://localhost:5000/mvp/employee/worker", {
+      console.log(AddServiceInfo["id"])
+      console.log(AddServiceInfo["longname"])
+      console.log(AddServiceInfo["homebase"])
+      console.log(AddServiceInfo["manager"])
+      axios.post("http://localhost:5000/services/add", {
                     
-                    username: AddownerInfo["username"],
-                    firstname:AddownerInfo["firstname"],
-                    lastname:AddownerInfo["lastname"]
+                    id: AddServiceInfo["id"],
+                    longname:AddServiceInfo["longname"],
+                    homebase:AddServiceInfo["homebase"],
+                    manager:AddServiceInfo["manager"]
                 })
                 .catch((error) => {
                     alert(error.response.data.message);
@@ -58,24 +67,31 @@ const Addservicepage = (props) => {
                 <div className={classes.entrybox}>
                     
                     <Entry 
-                        text={"username: "}
-                        name="username"
+                        text={"Service ID: "}
+                        name="id"
                         type="text"
-                        onChange={onChangeUsernameHandler}
+                        onChange={onChangeIdHandler}
                     />
 
                     <Entry 
-                        text={"First Name: "}
-                        name="firstname"
+                        text={"Full Name: "}
+                        name="longname"
                         type="text"
-                        onChange={onChangeFirstnameHandler}
+                        onChange={onChangeLongnameHandler}
                     />
 
                     <Entry 
-                        text={"Last Name: "}
-                        name="lastname"
+                        text={"Home Base: "}
+                        name="homebase"
                         type="text"
-                        onChange={onChangeLastnameHandler}
+                        onChange={onChangeHomebaseHandler}
+                    />
+
+                    <Entry 
+                        text={"Manager: "}
+                        name="manager"
+                        type="text"
+                        onChange={onChangeManagerHandler}
                     />
                 </div>
                 <div className={classes.buttons}>

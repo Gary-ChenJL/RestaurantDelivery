@@ -8,43 +8,43 @@ import classes from "./flydronePage.module.scss";
 
 const Flydronepage = (props) => {
 
-    const [AddownerInfo, setAddownerInfo] = useState({
-      username : "",
-      firstname: "",
-      lastname:""
+    const [AddFlydroneInfo, setAddFlydroneInfo] = useState({
+      id : "",
+      tag : "",
+      destination: ''
     }); 
 
-    const onChangeUsernameHandler = async (event) => {
-      var temp = AddownerInfo;
+    const onChangeIdHandler = async (event) => {
+      var temp = AddFlydroneInfo;
       temp[event.target.name] = event.target.value;
-      setAddownerInfo(temp);
-      // console.log(AddownerInfo["username"])
+      setAddFlydroneInfo(temp);
+      // console.log(AddFlydroneInfo["username"])
     }
 
-    const onChangeFirstnameHandler = async (event) => {
-      var temp = AddownerInfo;
+    const onChangeTagHandler = async (event) => {
+      var temp = AddFlydroneInfo;
       temp[event.target.name] = event.target.value;
-      setAddownerInfo(temp);
-      // console.log(AddownerInfo["firstname"])
+      setAddFlydroneInfo(temp);
+      // console.log(AddFlydroneInfo["firstname"])
     }
+    const onChangeDestinationHandler = async (event) => {
+        var temp = AddFlydroneInfo;
+        temp[event.target.name] = event.target.value;
+        setAddFlydroneInfo(temp);
+        // console.log(AddFlydroneInfo["firstname"])
+      }
 
-    const onChangeLastnameHandler = async (event) => {
-      var temp = AddownerInfo;
-      temp[event.target.name] = event.target.value;
-      setAddownerInfo(temp);
-      // console.log(AddownerInfo["lastname"])
-    }
 
 
     const onSubmitHandler = () => {
-      console.log(AddownerInfo["username"])
-      console.log(AddownerInfo["firstname"])
-      console.log(AddownerInfo["lastname"])
-      axios.post("http://localhost:5000/mvp/employee/worker", {
+      console.log(AddFlydroneInfo["id"])
+      console.log(AddFlydroneInfo["tag"])
+      console.log(AddFlydroneInfo["destination"])
+      axios.post("http://localhost:5000/services/drone/fly", {
                     
-                    username: AddownerInfo["username"],
-                    firstname:AddownerInfo["firstname"],
-                    lastname:AddownerInfo["lastname"]
+                    id: AddFlydroneInfo["id"],
+                    tag:AddFlydroneInfo["tag"],
+                    destination:AddFlydroneInfo["destination"]
                 })
                 .catch((error) => {
                     alert(error.response.data.message);
@@ -58,24 +58,24 @@ const Flydronepage = (props) => {
                 <div className={classes.entrybox}>
                     
                     <Entry 
-                        text={"username: "}
-                        name="username"
+                        text={"Service ID: "}
+                        name="id"
                         type="text"
-                        onChange={onChangeUsernameHandler}
+                        onChange={onChangeIdHandler}
                     />
 
                     <Entry 
-                        text={"First Name: "}
-                        name="firstname"
+                        text={"Drone Tag: "}
+                        name="tag"
                         type="text"
-                        onChange={onChangeFirstnameHandler}
+                        onChange={onChangeTagHandler}
                     />
 
                     <Entry 
-                        text={"Last Name: "}
-                        name="lastname"
+                        text={"Destination: "}
+                        name="destination"
                         type="text"
-                        onChange={onChangeLastnameHandler}
+                        onChange={onChangeDestinationHandler}
                     />
                 </div>
                 <div className={classes.buttons}>
