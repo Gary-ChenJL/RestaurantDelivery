@@ -7,7 +7,7 @@ router.post("/employee/worker", usersController.addWorkerRole);
 
 router.post("/owners", usersController.addOwner);
 
-router.post("/pilot/add", usersController.addEmployee);
+router.post("/pilot/add", usersController.addPilotRole);
 
 router.post("/employee/add", usersController.addEmployee);
 
