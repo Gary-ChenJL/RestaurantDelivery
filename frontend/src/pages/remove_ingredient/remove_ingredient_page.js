@@ -21,7 +21,7 @@ const Removeingredientpage = (props) => {
 
     const onSubmitHandler = () => {
       console.log(AddownerInfo["barcode"])
-      axios.post("http://localhost:5000/mvp/employee/worker", {
+      axios.post("http://localhost:5000/services/ingredient/remove", {
                     
                     barcode: AddownerInfo["barcode"]
                 })
