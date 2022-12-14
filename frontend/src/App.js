@@ -29,7 +29,7 @@ import Flydronepage from './pages/fly_drone/fly_drone_page';
 import Purchaseingredientpage from './pages/purchase_ingredient/purchase_ingredient_page';
 import Removeingredientpage from './pages/remove_ingredient/remove_ingredient_page';
 import Removedronepage from './pages/remove_drone/remove_drone_page';
-import Removepilotviewpage from './pages/remove_pilot_view/remove_pilot_view_page';
+import Removepilotrolepage from './pages/remove_pilot_role/remove_pilot_role_page';
 
 // imports for view
 import Displayownerviewpage from './pages/display_owner_view/display_owner_view_page';
@@ -90,7 +90,7 @@ export default function App() {
           <Route path="/purchase_ingredient" element={<Purchaseingredientpage />} />
           <Route path="/remove_ingredient" element={<Removeingredientpage />} />
           <Route path="/remove_drone" element={<Removedronepage />} />
-          <Route path="/remove_pilot_view" element={<Removepilotviewpage />} />
+          <Route path="/remove_pilot_role" element={<Removepilotrolepage />} />
           
 
           {/* Routes for views */}

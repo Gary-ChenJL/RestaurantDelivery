@@ -9,26 +9,42 @@ import classes from "./loaddronePage.module.scss";
 const Loaddronepage = (props) => {
 
     const [AddownerInfo, setAddownerInfo] = useState({
-      username : "",
-      firstname: "",
-      lastname:""
+      id : "",
+      tag: "",
+      barcode:"",
+      morepackage:"",
+      price:""
     }); 
 
-    const onChangeUsernameHandler = async (event) => {
+    const onChangeIDHandler = async (event) => {
       var temp = AddownerInfo;
       temp[event.target.name] = event.target.value;
       setAddownerInfo(temp);
       // console.log(AddownerInfo["username"])
     }
 
-    const onChangeFirstnameHandler = async (event) => {
+    const onChangeTagHandler = async (event) => {
       var temp = AddownerInfo;
       temp[event.target.name] = event.target.value;
       setAddownerInfo(temp);
       // console.log(AddownerInfo["firstname"])
     }
 
-    const onChangeLastnameHandler = async (event) => {
+    const onChangeBarcodeHandler = async (event) => {
+      var temp = AddownerInfo;
+      temp[event.target.name] = event.target.value;
+      setAddownerInfo(temp);
+      // console.log(AddownerInfo["lastname"])
+    }
+
+    const onChangeMorePackageHandler = async (event) => {
+        var temp = AddownerInfo;
+        temp[event.target.name] = event.target.value;
+        setAddownerInfo(temp);
+        // console.log(AddownerInfo["lastname"])
+      }
+
+    const onChangePriceHandler = async (event) => {
       var temp = AddownerInfo;
       temp[event.target.name] = event.target.value;
       setAddownerInfo(temp);
@@ -37,14 +53,18 @@ const Loaddronepage = (props) => {
 
 
     const onSubmitHandler = () => {
-      console.log(AddownerInfo["username"])
-      console.log(AddownerInfo["firstname"])
-      console.log(AddownerInfo["lastname"])
-      axios.post("http://localhost:5000/mvp/employee/worker", {
+      console.log(AddownerInfo["id"])
+      console.log(AddownerInfo["tag"])
+      console.log(AddownerInfo["barcode"])
+      console.log(AddownerInfo["morepackage"])
+      console.log(AddownerInfo["price"])
+      axios.post("http://localhost:5000/services/drone/load", {
                     
-                    username: AddownerInfo["username"],
-                    firstname:AddownerInfo["firstname"],
-                    lastname:AddownerInfo["lastname"]
+                    id: AddownerInfo["id"],
+                    tag:AddownerInfo["tag"],
+                    barcode:AddownerInfo["barcode"],
+                    morepackage:AddownerInfo["morepackage"],
+                    price:AddownerInfo["price"]
                 })
                 .catch((error) => {
                     alert(error.response.data.message);
@@ -58,24 +78,38 @@ const Loaddronepage = (props) => {
                 <div className={classes.entrybox}>
                     
                     <Entry 
-                        text={"username: "}
-                        name="username"
+                        text={"id: "}
+                        name="id"
                         type="text"
-                        onChange={onChangeUsernameHandler}
+                        onChange={onChangeIDHandler}
                     />
 
                     <Entry 
-                        text={"First Name: "}
-                        name="firstname"
+                        text={"tag: "}
+                        name="tag"
                         type="text"
-                        onChange={onChangeFirstnameHandler}
+                        onChange={onChangeTagHandler}
                     />
 
                     <Entry 
-                        text={"Last Name: "}
-                        name="lastname"
+                        text={"barcode: "}
+                        name="barcode"
                         type="text"
-                        onChange={onChangeLastnameHandler}
+                        onChange={onChangeBarcodeHandler}
+                    />
+
+                    <Entry 
+                        text={"More Package: "}
+                        name="morepackage"
+                        type="text"
+                        onChange={onChangeMorePackageHandler}
+                    />
+
+                    <Entry 
+                        text={"price: "}
+                        name="price"
+                        type="text"
+                        onChange={onChangePriceHandler}
                     />
                 </div>
                 <div className={classes.buttons}>

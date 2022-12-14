@@ -9,42 +9,32 @@ import classes from "./leaveswarmPage.module.scss";
 const Leaveswarmpage = (props) => {
 
     const [AddownerInfo, setAddownerInfo] = useState({
-      username : "",
-      firstname: "",
-      lastname:""
+      id : "",
+      tag: ""
     }); 
 
-    const onChangeUsernameHandler = async (event) => {
+    const onChangeIDHandler = async (event) => {
       var temp = AddownerInfo;
       temp[event.target.name] = event.target.value;
       setAddownerInfo(temp);
       // console.log(AddownerInfo["username"])
     }
 
-    const onChangeFirstnameHandler = async (event) => {
+    const onChangeTagHandler = async (event) => {
       var temp = AddownerInfo;
       temp[event.target.name] = event.target.value;
       setAddownerInfo(temp);
       // console.log(AddownerInfo["firstname"])
     }
 
-    const onChangeLastnameHandler = async (event) => {
-      var temp = AddownerInfo;
-      temp[event.target.name] = event.target.value;
-      setAddownerInfo(temp);
-      // console.log(AddownerInfo["lastname"])
-    }
-
 
     const onSubmitHandler = () => {
-      console.log(AddownerInfo["username"])
-      console.log(AddownerInfo["firstname"])
-      console.log(AddownerInfo["lastname"])
-      axios.post("http://localhost:5000/mvp/employee/worker", {
+      console.log(AddownerInfo["id"])
+      console.log(AddownerInfo["tag"])
+      axios.post("http://localhost:5000/services/drone/leaveswarm", {
                     
-                    username: AddownerInfo["username"],
-                    firstname:AddownerInfo["firstname"],
-                    lastname:AddownerInfo["lastname"]
+                    id: AddownerInfo["id"],
+                    tag:AddownerInfo["tag"]
                 })
                 .catch((error) => {
                     alert(error.response.data.message);
@@ -58,25 +48,19 @@ const Leaveswarmpage = (props) => {
                 <div className={classes.entrybox}>
                     
                     <Entry 
-                        text={"username: "}
-                        name="username"
+                        text={"id: "}
+                        name="id"
                         type="text"
-                        onChange={onChangeUsernameHandler}
+                        onChange={onChangeIDHandler}
                     />
 
                     <Entry 
-                        text={"First Name: "}
-                        name="firstname"
+                        text={"tag: "}
+                        name="tag"
                         type="text"
-                        onChange={onChangeFirstnameHandler}
+                        onChange={onChangeTagHandler}
                     />
 
-                    <Entry 
-                        text={"Last Name: "}
-                        name="lastname"
-                        type="text"
-                        onChange={onChangeLastnameHandler}
-                    />
                 </div>
                 <div className={classes.buttons}>
                     <button className={classes.back}>

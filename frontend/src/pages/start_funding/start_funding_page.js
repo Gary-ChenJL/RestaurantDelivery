@@ -9,42 +9,31 @@ import classes from "./startfundingPage.module.scss";
 const Startfundingpage = (props) => {
 
     const [AddownerInfo, setAddownerInfo] = useState({
-      username : "",
-      firstname: "",
-      lastname:""
+      owner : "",
+      longname: ""
     }); 
 
-    const onChangeUsernameHandler = async (event) => {
+    const onChangeOwnerHandler = async (event) => {
       var temp = AddownerInfo;
       temp[event.target.name] = event.target.value;
       setAddownerInfo(temp);
       // console.log(AddownerInfo["username"])
     }
 
-    const onChangeFirstnameHandler = async (event) => {
+    const onChangeLongnameHandler = async (event) => {
       var temp = AddownerInfo;
       temp[event.target.name] = event.target.value;
       setAddownerInfo(temp);
       // console.log(AddownerInfo["firstname"])
     }
 
-    const onChangeLastnameHandler = async (event) => {
-      var temp = AddownerInfo;
-      temp[event.target.name] = event.target.value;
-      setAddownerInfo(temp);
-      // console.log(AddownerInfo["lastname"])
-    }
-
-
     const onSubmitHandler = () => {
-      console.log(AddownerInfo["username"])
-      console.log(AddownerInfo["firstname"])
-      console.log(AddownerInfo["lastname"])
-      axios.post("http://localhost:5000/mvp/employee/worker", {
+      console.log(AddownerInfo["owner"])
+      console.log(AddownerInfo["longname"])
+      axios.post("http://localhost:5000/locations/restaurant/fund", {
                     
-                    username: AddownerInfo["username"],
-                    firstname:AddownerInfo["firstname"],
-                    lastname:AddownerInfo["lastname"]
+                    owner: AddownerInfo["owner"],
+                    longname:AddownerInfo["longname"]
                 })
                 .catch((error) => {
                     alert(error.response.data.message);
@@ -58,24 +47,17 @@ const Startfundingpage = (props) => {
                 <div className={classes.entrybox}>
                     
                     <Entry 
-                        text={"username: "}
-                        name="username"
+                        text={"Owner: "}
+                        name="owner"
                         type="text"
-                        onChange={onChangeUsernameHandler}
+                        onChange={onChangeOwnerHandler}
                     />
 
                     <Entry 
-                        text={"First Name: "}
-                        name="firstname"
+                        text={"Long Name: "}
+                        name="longname"
                         type="text"
-                        onChange={onChangeFirstnameHandler}
-                    />
-
-                    <Entry 
-                        text={"Last Name: "}
-                        name="lastname"
-                        type="text"
-                        onChange={onChangeLastnameHandler}
+                        onChange={onChangeLongnameHandler}
                     />
                 </div>
                 <div className={classes.buttons}>

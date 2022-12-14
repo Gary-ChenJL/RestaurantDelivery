@@ -40,7 +40,7 @@ const Addownerpage = (props) => {
       console.log(AddownerInfo["username"])
       console.log(AddownerInfo["firstname"])
       console.log(AddownerInfo["lastname"])
-      axios.post("http://localhost:5000/mvp/employee/worker", {
+      axios.post("http://localhost:5000/users/owners", {
                     
                     username: AddownerInfo["username"],
                     firstname:AddownerInfo["firstname"],
