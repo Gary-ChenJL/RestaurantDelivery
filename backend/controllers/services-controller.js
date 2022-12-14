@@ -1,6 +1,6 @@
 const pool = require("../database");
 
-const addIngredient = async (req, res, next) => {
+const addIngredient = async (req, res, next) => { 
     let sql = `CALL add_ingredient(?,?,?)`;
     const { barcode, name, weight} = req.body;
     pool.query(sql, [barcode, name, weight], (err, result) => {
@@ -112,7 +112,7 @@ const purchaseIngredient = async (req, res, next) => {
 };
 
 const removeIngredient = async (req, res, next) => {
-    let sql = `CALL remove_ingredient(?,?,?,?,?)`;
+    let sql = `CALL remove_ingredient(?)`;
     const { barcode} = req.body;
     pool.query(sql, [barcode], (err, result) => {
         if (err) return next(new Error(err.message));
@@ -122,7 +122,7 @@ const removeIngredient = async (req, res, next) => {
 };
 
 const removeDrone = async (req, res, next) => {
-    let sql = `CALL remove_drone(?,?,?,?,?,?)`;
+    let sql = `CALL remove_drone(?,?)`;
     const { id, tag} = req.body;
     pool.query(sql, [ id, tag], (err, result) => {
         if (err) return next(new Error(err.message));

@@ -9,26 +9,42 @@ import classes from "./purchaseingredientPage.module.scss";
 const Purchaseingredientpage = (props) => {
 
     const [AddownerInfo, setAddownerInfo] = useState({
-      username : "",
-      firstname: "",
-      lastname:""
+      longname : "",
+      id: "",
+      tag:"",
+      barcode:"",
+      quantity:""
     }); 
 
-    const onChangeUsernameHandler = async (event) => {
+    const onChangeLongnameHandler = async (event) => {
       var temp = AddownerInfo;
       temp[event.target.name] = event.target.value;
       setAddownerInfo(temp);
       // console.log(AddownerInfo["username"])
     }
 
-    const onChangeFirstnameHandler = async (event) => {
+    const onChangeIDHandler = async (event) => {
       var temp = AddownerInfo;
       temp[event.target.name] = event.target.value;
       setAddownerInfo(temp);
       // console.log(AddownerInfo["firstname"])
     }
 
-    const onChangeLastnameHandler = async (event) => {
+    const onChangeTagHandler = async (event) => {
+      var temp = AddownerInfo;
+      temp[event.target.name] = event.target.value;
+      setAddownerInfo(temp);
+      // console.log(AddownerInfo["lastname"])
+    }
+
+    const onChangeBarcodeHandler = async (event) => {
+        var temp = AddownerInfo;
+        temp[event.target.name] = event.target.value;
+        setAddownerInfo(temp);
+        // console.log(AddownerInfo["lastname"])
+      }
+
+    const onChangeQuantityHandler = async (event) => {
       var temp = AddownerInfo;
       temp[event.target.name] = event.target.value;
       setAddownerInfo(temp);
@@ -37,14 +53,18 @@ const Purchaseingredientpage = (props) => {
 
 
     const onSubmitHandler = () => {
-      console.log(AddownerInfo["username"])
-      console.log(AddownerInfo["firstname"])
-      console.log(AddownerInfo["lastname"])
-      axios.post("http://localhost:5000/mvp/employee/worker", {
+      console.log(AddownerInfo["longname"])
+      console.log(AddownerInfo["id"])
+      console.log(AddownerInfo["tag"])
+      console.log(AddownerInfo["barcode"])
+      console.log(AddownerInfo["quantity"])
+      axios.post("http://localhost:5000/services/ingredient/purchase", {
                     
-                    username: AddownerInfo["username"],
-                    firstname:AddownerInfo["firstname"],
-                    lastname:AddownerInfo["lastname"]
+                    longname: AddownerInfo["longname"],
+                    id:AddownerInfo["id"],
+                    tag:AddownerInfo["tag"],
+                    barcode:AddownerInfo["barcode"],
+                    quantity:AddownerInfo["quantity"]
                 })
                 .catch((error) => {
                     alert(error.response.data.message);
@@ -58,24 +78,38 @@ const Purchaseingredientpage = (props) => {
                 <div className={classes.entrybox}>
                     
                     <Entry 
-                        text={"username: "}
-                        name="username"
+                        text={"longname: "}
+                        name="longname"
                         type="text"
-                        onChange={onChangeUsernameHandler}
+                        onChange={onChangeLongnameHandler}
                     />
 
                     <Entry 
-                        text={"First Name: "}
-                        name="firstname"
+                        text={"id: "}
+                        name="id"
                         type="text"
-                        onChange={onChangeFirstnameHandler}
+                        onChange={onChangeIDHandler}
                     />
 
                     <Entry 
-                        text={"Last Name: "}
-                        name="lastname"
+                        text={"tag: "}
+                        name="tag"
                         type="text"
-                        onChange={onChangeLastnameHandler}
+                        onChange={onChangeTagHandler}
+                    />
+
+                    <Entry 
+                        text={"barcode: "}
+                        name="barcode"
+                        type="text"
+                        onChange={onChangeBarcodeHandler}
+                    />
+
+                    <Entry 
+                        text={"quantity: "}
+                        name="quantity"
+                        type="text"
+                        onChange={onChangeQuantityHandler}
                     />
                 </div>
                 <div className={classes.buttons}>

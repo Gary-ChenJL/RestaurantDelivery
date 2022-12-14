@@ -9,26 +9,26 @@ import classes from "./refueldronePage.module.scss";
 const Refueldronepage = (props) => {
 
     const [AddownerInfo, setAddownerInfo] = useState({
-      username : "",
-      firstname: "",
-      lastname:""
+      id : "",
+      tag: "",
+      morefuel:""
     }); 
 
-    const onChangeUsernameHandler = async (event) => {
+    const onChangeIDHandler = async (event) => {
       var temp = AddownerInfo;
       temp[event.target.name] = event.target.value;
       setAddownerInfo(temp);
       // console.log(AddownerInfo["username"])
     }
 
-    const onChangeFirstnameHandler = async (event) => {
+    const onChangeTagHandler = async (event) => {
       var temp = AddownerInfo;
       temp[event.target.name] = event.target.value;
       setAddownerInfo(temp);
       // console.log(AddownerInfo["firstname"])
     }
 
-    const onChangeLastnameHandler = async (event) => {
+    const onChangeMorefuelHandler = async (event) => {
       var temp = AddownerInfo;
       temp[event.target.name] = event.target.value;
       setAddownerInfo(temp);
@@ -37,14 +37,14 @@ const Refueldronepage = (props) => {
 
 
     const onSubmitHandler = () => {
-      console.log(AddownerInfo["username"])
-      console.log(AddownerInfo["firstname"])
-      console.log(AddownerInfo["lastname"])
-      axios.post("http://localhost:5000/mvp/employee/worker", {
+      console.log(AddownerInfo["id"])
+      console.log(AddownerInfo["tag"])
+      console.log(AddownerInfo["morefuel"])
+      axios.post("http://localhost:5000/services/drone/refuel", {
                     
-                    username: AddownerInfo["username"],
-                    firstname:AddownerInfo["firstname"],
-                    lastname:AddownerInfo["lastname"]
+                    id: AddownerInfo["id"],
+                    tag:AddownerInfo["tag"],
+                    morefuel:AddownerInfo["morefuel"]
                 })
                 .catch((error) => {
                     alert(error.response.data.message);
@@ -58,24 +58,24 @@ const Refueldronepage = (props) => {
                 <div className={classes.entrybox}>
                     
                     <Entry 
-                        text={"username: "}
-                        name="username"
+                        text={"id: "}
+                        name="id"
                         type="text"
-                        onChange={onChangeUsernameHandler}
+                        onChange={onChangeIDHandler}
                     />
 
                     <Entry 
-                        text={"First Name: "}
-                        name="firstname"
+                        text={"tag: "}
+                        name="tag"
                         type="text"
-                        onChange={onChangeFirstnameHandler}
+                        onChange={onChangeTagHandler}
                     />
 
                     <Entry 
-                        text={"Last Name: "}
-                        name="lastname"
+                        text={"More Fuel: "}
+                        name="morefuel"
                         type="text"
-                        onChange={onChangeLastnameHandler}
+                        onChange={onChangeMorefuelHandler}
                     />
                 </div>
                 <div className={classes.buttons}>

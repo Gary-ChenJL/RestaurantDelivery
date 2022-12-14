@@ -253,9 +253,9 @@ const ProcedurePage = (props) => {
         <Link
           className={classes.link_click}
           style={{ paddingTop: 15, paddingBottom: 15 }}
-          to={"/remove_pilot_view"}
+          to={"/remove_pilot_role"}
         >
-          remove_pilot_view
+          remove_pilot_role
         </Link>
       </button>
     </div>

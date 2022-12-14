@@ -10,8 +10,7 @@ const Hireemployeepage = (props) => {
 
     const [AddownerInfo, setAddownerInfo] = useState({
       username : "",
-      firstname: "",
-      lastname:""
+      id: ""
     }); 
 
     const onChangeUsernameHandler = async (event) => {
@@ -21,30 +20,22 @@ const Hireemployeepage = (props) => {
       // console.log(AddownerInfo["username"])
     }
 
-    const onChangeFirstnameHandler = async (event) => {
+    const onChangeIDHandler = async (event) => {
       var temp = AddownerInfo;
       temp[event.target.name] = event.target.value;
       setAddownerInfo(temp);
       // console.log(AddownerInfo["firstname"])
     }
 
-    const onChangeLastnameHandler = async (event) => {
-      var temp = AddownerInfo;
-      temp[event.target.name] = event.target.value;
-      setAddownerInfo(temp);
-      // console.log(AddownerInfo["lastname"])
-    }
 
 
     const onSubmitHandler = () => {
       console.log(AddownerInfo["username"])
-      console.log(AddownerInfo["firstname"])
-      console.log(AddownerInfo["lastname"])
-      axios.post("http://localhost:5000/mvp/employee/worker", {
+      console.log(AddownerInfo["id"])
+      axios.post("http://localhost:5000/users/employee/hire", {
                     
                     username: AddownerInfo["username"],
-                    firstname:AddownerInfo["firstname"],
-                    lastname:AddownerInfo["lastname"]
+                    id:AddownerInfo["id"]
                 })
                 .catch((error) => {
                     alert(error.response.data.message);
@@ -65,17 +56,10 @@ const Hireemployeepage = (props) => {
                     />
 
                     <Entry 
-                        text={"First Name: "}
-                        name="firstname"
+                        text={"id: "}
+                        name="id"
                         type="text"
-                        onChange={onChangeFirstnameHandler}
-                    />
-
-                    <Entry 
-                        text={"Last Name: "}
-                        name="lastname"
-                        type="text"
-                        onChange={onChangeLastnameHandler}
+                        onChange={onChangeIDHandler}
                     />
                 </div>
                 <div className={classes.buttons}>

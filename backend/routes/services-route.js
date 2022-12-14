@@ -27,7 +27,7 @@ router.post("/ingredient/purchase", servicesController.purchaseIngredient);
 
 router.post("/ingredient/remove", servicesController.removeIngredient);
 
-router.post("/drone/remove", servicesController.refuelDrone);
+router.post("/drone/remove", servicesController.removeDrone);
 
 router.get("/view/service", servicesController.displayServiceView);
 

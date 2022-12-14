@@ -6,7 +6,7 @@ const addOwner = async (req, res, next) => {
     pool.query(sql, [username, first_name, last_name, address, birthdate ], (err, result) => {
         if (err) return next(new Error(err.message));
         return res.status(201)
-                  .json({ success: true });
+                  .json({ success: true }); 
     });
 };
 
