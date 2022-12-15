@@ -40,7 +40,7 @@ const Addpilotrolepage = (props) => {
       console.log(AddPilotroleInfo["username"])
       console.log(AddPilotroleInfo["licenseID"])
       console.log(AddPilotroleInfo["pilot_experience"])
-      axios.post("http://localhost:5000/mvp/employee/worker", {
+      axios.post("http://localhost:5000/users/pilot/add", {
                     
                     username: AddPilotroleInfo["username"],
                     licenseID:AddPilotroleInfo["licenseID"],

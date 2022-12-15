@@ -9,42 +9,52 @@ import classes from "./addrestaurantPage.module.scss";
 const Addrestaurantpage = (props) => {
 
     const [AddownerInfo, setAddownerInfo] = useState({
-      username : "",
-      firstname: "",
-      lastname:""
+      longname : "",
+      rating: "",
+      spent:"",
+      location:""
     }); 
 
-    const onChangeUsernameHandler = async (event) => {
+    const onChangeLongnameHandler = async (event) => {
       var temp = AddownerInfo;
       temp[event.target.name] = event.target.value;
       setAddownerInfo(temp);
       // console.log(AddownerInfo["username"])
     }
 
-    const onChangeFirstnameHandler = async (event) => {
+    const onChangeRatingHandler = async (event) => {
       var temp = AddownerInfo;
       temp[event.target.name] = event.target.value;
       setAddownerInfo(temp);
       // console.log(AddownerInfo["firstname"])
     }
 
-    const onChangeLastnameHandler = async (event) => {
+    const onChangeSpentHandler = async (event) => {
       var temp = AddownerInfo;
       temp[event.target.name] = event.target.value;
       setAddownerInfo(temp);
       // console.log(AddownerInfo["lastname"])
     }
 
+    const onChangeLocationHandler = async (event) => {
+        var temp = AddownerInfo;
+        temp[event.target.name] = event.target.value;
+        setAddownerInfo(temp);
+        // console.log(AddownerInfo["lastname"])
+      }
+
 
     const onSubmitHandler = () => {
-      console.log(AddownerInfo["username"])
-      console.log(AddownerInfo["firstname"])
-      console.log(AddownerInfo["lastname"])
-      axios.post("http://localhost:5000/mvp/employee/worker", {
+      console.log(AddownerInfo["longname"])
+      console.log(AddownerInfo["rating"])
+      console.log(AddownerInfo["spent"])
+      console.log(AddownerInfo["location"])
+      axios.post("http://localhost:5000/locations/restaurant/add", {
                     
-                    username: AddownerInfo["username"],
-                    firstname:AddownerInfo["firstname"],
-                    lastname:AddownerInfo["lastname"]
+                    longname: AddownerInfo["longname"],
+                    rating:AddownerInfo["rating"],
+                    spent:AddownerInfo["spent"],
+                    location:AddownerInfo["location"]
                 })
                 .catch((error) => {
                     alert(error.response.data.message);
@@ -58,24 +68,31 @@ const Addrestaurantpage = (props) => {
                 <div className={classes.entrybox}>
                     
                     <Entry 
-                        text={"username: "}
-                        name="username"
+                        text={"Longname: "}
+                        name="longname"
                         type="text"
-                        onChange={onChangeUsernameHandler}
+                        onChange={onChangeLongnameHandler}
                     />
 
                     <Entry 
-                        text={"First Name: "}
-                        name="firstname"
+                        text={"Rating: "}
+                        name="rating"
                         type="text"
-                        onChange={onChangeFirstnameHandler}
+                        onChange={onChangeRatingHandler}
                     />
 
                     <Entry 
-                        text={"Last Name: "}
-                        name="lastname"
+                        text={"Spent: "}
+                        name="spent"
                         type="text"
-                        onChange={onChangeLastnameHandler}
+                        onChange={onChangeSpentHandler}
+                    />
+
+                    <Entry 
+                        text={"Location: "}
+                        name="location"
+                        type="text"
+                        onChange={onChangeLocationHandler}
                     />
                 </div>
                 <div className={classes.buttons}>
