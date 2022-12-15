@@ -52,7 +52,7 @@ const Addpilotrolepage = (props) => {
     };
     
     return (
-        <div className={classes.addPilotrolePage}>  
+        <div className={classes.addpilotrolePage}>  
             <div className={classes.content}>
                 <h1 className={classes.title}>Add Pilot Role</h1>
                 <div className={classes.entrybox}>
