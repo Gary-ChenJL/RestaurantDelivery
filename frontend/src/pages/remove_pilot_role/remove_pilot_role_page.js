@@ -19,6 +19,10 @@ const Removepilotrolepage = (props) => {
       // console.log(AddownerInfo["username"])
     }
 
+    function refreshPage(){ 
+        window.location.reload(); 
+    }
+
 
     const onSubmitHandler = () => {
       console.log(AddownerInfo["username"])
@@ -54,6 +58,10 @@ const Removepilotrolepage = (props) => {
                     </button>
                     <button className={classes.create} onClick={onSubmitHandler}>
                         Create
+                    </button>
+
+                    <button className={classes.create} onClick={refreshPage}>
+                        refresh
                     </button>
                 </div>
             </div>

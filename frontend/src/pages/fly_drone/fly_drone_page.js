@@ -34,6 +34,10 @@ const Flydronepage = (props) => {
         // console.log(AddFlydroneInfo["firstname"])
       }
 
+    function refreshPage(){ 
+        window.location.reload(); 
+    }
+
 
 
     const onSubmitHandler = () => {
@@ -88,6 +92,10 @@ const Flydronepage = (props) => {
                     </button>
                     <button className={classes.create} onClick={onSubmitHandler}>
                         Create
+                    </button>
+
+                    <button className={classes.create} onClick={refreshPage}>
+                        refresh
                     </button>
                 </div>
             </div>

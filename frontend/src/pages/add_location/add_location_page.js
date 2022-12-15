@@ -61,6 +61,9 @@ const Addlocationpage = (props) => {
                     alert(error.response.data.message);
                 });
     };
+    function refreshPage(){ 
+        window.location.reload(); 
+    }
     
     return (
         <div className={classes.addlocationPage}>  
@@ -103,6 +106,9 @@ const Addlocationpage = (props) => {
                     </button>
                     <button className={classes.create} onClick={onSubmitHandler}>
                         Create
+                    </button>
+                    <button className={classes.create} onClick={refreshPage}>
+                        refresh
                     </button>
                 </div>
             </div>

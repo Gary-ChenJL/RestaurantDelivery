@@ -51,6 +51,10 @@ const Purchaseingredientpage = (props) => {
       // console.log(AddownerInfo["lastname"])
     }
 
+    function refreshPage(){ 
+        window.location.reload(); 
+    }
+
 
     const onSubmitHandler = () => {
       console.log(AddownerInfo["longname"])
@@ -123,6 +127,12 @@ const Purchaseingredientpage = (props) => {
                     <button className={classes.create} onClick={onSubmitHandler}>
                         Create
                     </button>
+
+                    <button className={classes.create} onClick={refreshPage}>
+                        refresh
+                    </button>
+
+                    
                 </div>
             </div>
         </div>

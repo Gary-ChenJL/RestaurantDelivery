@@ -44,6 +44,11 @@ const Addrestaurantpage = (props) => {
       }
 
 
+    function refreshPage(){ 
+        window.location.reload(); 
+    }
+
+
     const onSubmitHandler = () => {
       console.log(AddownerInfo["longname"])
       console.log(AddownerInfo["rating"])
@@ -105,6 +110,9 @@ const Addrestaurantpage = (props) => {
                     </button>
                     <button className={classes.create} onClick={onSubmitHandler}>
                         Create
+                    </button>
+                    <button className={classes.create} onClick={refreshPage}>
+                        refresh
                     </button>
                 </div>
             </div>

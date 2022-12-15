@@ -36,6 +36,11 @@ const Takeoverdronepage = (props) => {
     }
 
 
+    function refreshPage(){ 
+        window.location.reload(); 
+    }
+
+
     const onSubmitHandler = () => {
       console.log(AddownerInfo["username"])
       console.log(AddownerInfo["id"])
@@ -88,6 +93,9 @@ const Takeoverdronepage = (props) => {
                     </button>
                     <button className={classes.create} onClick={onSubmitHandler}>
                         Create
+                    </button>
+                    <button className={classes.create} onClick={refreshPage}>
+                        refresh
                     </button>
                 </div>
             </div>

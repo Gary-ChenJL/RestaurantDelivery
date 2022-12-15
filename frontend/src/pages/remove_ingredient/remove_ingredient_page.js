@@ -19,6 +19,10 @@ const Removeingredientpage = (props) => {
       // console.log(AddownerInfo["username"])
     }
 
+    function refreshPage(){ 
+        window.location.reload(); 
+    }
+
     const onSubmitHandler = () => {
       console.log(AddownerInfo["barcode"])
       axios.post("http://localhost:5000/services/ingredient/remove", {
@@ -54,6 +58,9 @@ const Removeingredientpage = (props) => {
                     </button>
                     <button className={classes.create} onClick={onSubmitHandler}>
                         Create
+                    </button>
+                    <button className={classes.create} onClick={refreshPage}>
+                        refresh
                     </button>
                 </div>
             </div>

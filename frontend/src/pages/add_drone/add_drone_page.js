@@ -8,6 +8,10 @@ import classes from "./adddronePage.module.scss";
 
 const Adddronepage = (props) => {
 
+    function refreshPage(){ 
+        window.location.reload(); 
+    }
+
     const [AdddroneInfo, setAdddroneInfo] = useState({
         id: '', 
         tag: '', 
@@ -135,6 +139,9 @@ const Adddronepage = (props) => {
                     </button>
                     <button className={classes.create} onClick={onSubmitHandler}>
                         Create
+                    </button>
+                    <button className={classes.create} onClick={refreshPage}>
+                        refresh
                     </button>
                 </div>
             </div>
