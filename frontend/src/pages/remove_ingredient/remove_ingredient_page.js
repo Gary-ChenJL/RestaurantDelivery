@@ -24,6 +24,8 @@ const Removeingredientpage = (props) => {
       axios.post("http://localhost:5000/services/ingredient/remove", {
                     
                     barcode: AddownerInfo["barcode"]
+                }).then(() => {
+                    alert("Success")
                 })
                 .catch((error) => {
                     alert(error.response.data.message);

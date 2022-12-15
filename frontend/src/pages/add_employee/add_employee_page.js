@@ -100,6 +100,8 @@ const Addemployeepage = (props) => {
                     hired: AddEmployeeInfo["hired"],
                     employee_experience:AddEmployeeInfo["employee_experience"],
                     salary:AddEmployeeInfo["salary"]
+                }).then(() => {
+                    alert("Success")
                 })
                 .catch((error) => {
                     alert(error.response.data.message);

@@ -45,6 +45,8 @@ const Refueldronepage = (props) => {
                     id: AddownerInfo["id"],
                     tag:AddownerInfo["tag"],
                     morefuel:AddownerInfo["morefuel"]
+                }).then(() => {
+                    alert("Success")
                 })
                 .catch((error) => {
                     alert(error.response.data.message);

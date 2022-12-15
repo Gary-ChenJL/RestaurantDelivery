@@ -45,6 +45,8 @@ const Addingredientpage = (props) => {
                     barcode: AddIngredientInfo["barcode"],
                     name:AddIngredientInfo["iname"],
                     weight:AddIngredientInfo["weight"]
+                }).then(() => {
+                    alert("Success")
                 })
                 .catch((error) => {
                     alert(error.response.data.message);

@@ -45,6 +45,8 @@ const Joinswarmpage = (props) => {
                     id: AddownerInfo["id"],
                     tag:AddownerInfo["tag"],
                     leaderTag:AddownerInfo["leaderTag"]
+                }).then(() => {
+                    alert("Success")
                 })
                 .catch((error) => {
                     alert(error.response.data.message);

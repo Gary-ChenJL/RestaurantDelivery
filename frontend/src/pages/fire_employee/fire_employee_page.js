@@ -36,6 +36,8 @@ const Fireemployeepage = (props) => {
                     
                     username: AddFireInfo["username"],
                     id:AddFireInfo["id"],
+                }).then(() => {
+                    alert("Success")
                 })
                 .catch((error) => {
                     alert(error.response.data.message);

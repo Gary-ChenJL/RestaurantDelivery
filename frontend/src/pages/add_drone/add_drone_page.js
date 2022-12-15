@@ -74,6 +74,8 @@ const Adddronepage = (props) => {
                     capacity:AdddroneInfo["capacity"],
                     sales:AdddroneInfo["sales"],
                     flown_by:AdddroneInfo["flown_by"]
+                }).then(() => {
+                    alert("Success")
                 })
                 .catch((error) => {
                     alert(error.response.data.message);
