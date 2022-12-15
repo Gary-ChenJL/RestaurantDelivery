@@ -77,6 +77,10 @@ const Addemployeepage = (props) => {
         // console.log(AddEmployeeInfo["lastname"])
     }
 
+    function refreshPage(){ 
+        window.location.reload(); 
+    }
+
 
     const onSubmitHandler = () => {
       console.log(AddEmployeeInfo["username"])
@@ -179,6 +183,9 @@ const Addemployeepage = (props) => {
                     </button>
                     <button className={classes.create} onClick={onSubmitHandler}>
                         Create
+                    </button>
+                    <button className={classes.create} onClick={refreshPage}>
+                        refresh
                     </button>
                 </div>
             </div>

@@ -35,6 +35,10 @@ const Addpilotrolepage = (props) => {
       // console.log(AddPilotroleInfo["lastname"])
     }
 
+    function refreshPage(){ 
+        window.location.reload(); 
+    }
+
 
     const onSubmitHandler = () => {
       console.log(AddPilotroleInfo["username"])
@@ -89,6 +93,9 @@ const Addpilotrolepage = (props) => {
                     </button>
                     <button className={classes.create} onClick={onSubmitHandler}>
                         Create
+                    </button>
+                    <button className={classes.create} onClick={refreshPage}>
+                        refresh
                     </button>
                 </div>
             </div>

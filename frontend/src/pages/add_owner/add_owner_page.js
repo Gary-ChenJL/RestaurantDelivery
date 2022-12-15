@@ -16,6 +16,10 @@ const Addownerpage = (props) => {
       birthdate:''
     }); 
 
+    function refreshPage(){ 
+        window.location.reload(); 
+    }
+
     const onChangeUsernameHandler = async (event) => {
       var temp = AddownerInfo;
       temp[event.target.name] = event.target.value;
@@ -121,6 +125,9 @@ const Addownerpage = (props) => {
                     </button>
                     <button className={classes.create} onClick={onSubmitHandler}>
                         Create
+                    </button>
+                    <button className={classes.create} onClick={refreshPage}>
+                        refresh
                     </button>
                 </div>
             </div>

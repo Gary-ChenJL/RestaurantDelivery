@@ -21,6 +21,10 @@ const Addworkerrolepage = (props) => {
       // console.log(AddWorkerInfo["username"])
     }
 
+    function refreshPage(){ 
+        window.location.reload(); 
+    }
+
 
     const onSubmitHandler = () => {
       console.log(AddWorkerInfo["username"])
@@ -58,6 +62,9 @@ const Addworkerrolepage = (props) => {
                     </button>
                     <button className={classes.create} onClick={onSubmitHandler}>
                         Create
+                    </button>
+                    <button className={classes.create} onClick={refreshPage}>
+                        refresh
                     </button>
                 </div>
             </div>

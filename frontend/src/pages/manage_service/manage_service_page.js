@@ -27,6 +27,10 @@ const Manageservicepage = (props) => {
       // console.log(AddownerInfo["firstname"])
     }
 
+    function refreshPage(){ 
+        window.location.reload(); 
+    }
+
 
     const onSubmitHandler = () => {
       console.log(AddownerInfo["username"])
@@ -72,6 +76,9 @@ const Manageservicepage = (props) => {
                     </button>
                     <button className={classes.create} onClick={onSubmitHandler}>
                         Create
+                    </button>
+                    <button className={classes.create} onClick={refreshPage}>
+                        refresh
                     </button>
                 </div>
             </div>

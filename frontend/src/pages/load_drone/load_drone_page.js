@@ -51,6 +51,10 @@ const Loaddronepage = (props) => {
       // console.log(AddownerInfo["lastname"])
     }
 
+    function refreshPage(){ 
+        window.location.reload(); 
+    }
+
 
     const onSubmitHandler = () => {
       console.log(AddownerInfo["id"])
@@ -122,6 +126,9 @@ const Loaddronepage = (props) => {
                     </button>
                     <button className={classes.create} onClick={onSubmitHandler}>
                         Create
+                    </button>
+                    <button className={classes.create} onClick={refreshPage}>
+                        refresh
                     </button>
                 </div>
             </div>
