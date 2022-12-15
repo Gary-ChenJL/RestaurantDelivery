@@ -8,43 +8,26 @@ import classes from "./addworkerrolePage.module.scss";
 
 const Addworkerrolepage = (props) => {
 
-    const [AddownerInfo, setAddownerInfo] = useState({
+    const [AddWorkerInfo, setAddWorkerInfo] = useState({
       username : "",
       firstname: "",
       lastname:""
     }); 
 
     const onChangeUsernameHandler = async (event) => {
-      var temp = AddownerInfo;
+      var temp = AddWorkerInfo;
       temp[event.target.name] = event.target.value;
-      setAddownerInfo(temp);
-      // console.log(AddownerInfo["username"])
-    }
-
-    const onChangeFirstnameHandler = async (event) => {
-      var temp = AddownerInfo;
-      temp[event.target.name] = event.target.value;
-      setAddownerInfo(temp);
-      // console.log(AddownerInfo["firstname"])
-    }
-
-    const onChangeLastnameHandler = async (event) => {
-      var temp = AddownerInfo;
-      temp[event.target.name] = event.target.value;
-      setAddownerInfo(temp);
-      // console.log(AddownerInfo["lastname"])
+      setAddWorkerInfo(temp);
+      // console.log(AddWorkerInfo["username"])
     }
 
 
     const onSubmitHandler = () => {
-      console.log(AddownerInfo["username"])
-      console.log(AddownerInfo["firstname"])
-      console.log(AddownerInfo["lastname"])
-      axios.post("http://localhost:5000/mvp/employee/worker", {
+      console.log(AddWorkerInfo["username"])
+      axios.post("http://localhost:5000/users/employee/worker", {
                     
-                    username: AddownerInfo["username"],
-                    firstname:AddownerInfo["firstname"],
-                    lastname:AddownerInfo["lastname"]
+                    username: AddWorkerInfo["username"],
+
                 })
                 .catch((error) => {
                     alert(error.response.data.message);
@@ -58,25 +41,12 @@ const Addworkerrolepage = (props) => {
                 <div className={classes.entrybox}>
                     
                     <Entry 
-                        text={"username: "}
+                        text={"Username: "}
                         name="username"
                         type="text"
                         onChange={onChangeUsernameHandler}
                     />
 
-                    <Entry 
-                        text={"First Name: "}
-                        name="firstname"
-                        type="text"
-                        onChange={onChangeFirstnameHandler}
-                    />
-
-                    <Entry 
-                        text={"Last Name: "}
-                        name="lastname"
-                        type="text"
-                        onChange={onChangeLastnameHandler}
-                    />
                 </div>
                 <div className={classes.buttons}>
                     <button className={classes.back}>

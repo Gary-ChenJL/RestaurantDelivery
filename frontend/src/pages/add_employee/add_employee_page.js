@@ -8,43 +8,98 @@ import classes from "./addemployeePage.module.scss";
 
 const Addemployeepage = (props) => {
 
-    const [AddownerInfo, setAddownerInfo] = useState({
+    const [AddEmployeeInfo, setAddEmployeeInfo] = useState({
       username : "",
       firstname: "",
-      lastname:""
+      lastname:"",
+      address:'',
+      birthdate:'',
+      taxID:'',
+      hired:'',
+      emloyee_experience:'',
+      salary:''
     }); 
 
     const onChangeUsernameHandler = async (event) => {
-      var temp = AddownerInfo;
+      var temp = AddEmployeeInfo;
       temp[event.target.name] = event.target.value;
-      setAddownerInfo(temp);
-      // console.log(AddownerInfo["username"])
+      setAddEmployeeInfo(temp);
+      // console.log(AddEmployeeInfo["username"])
     }
 
     const onChangeFirstnameHandler = async (event) => {
-      var temp = AddownerInfo;
+      var temp = AddEmployeeInfo;
       temp[event.target.name] = event.target.value;
-      setAddownerInfo(temp);
-      // console.log(AddownerInfo["firstname"])
+      setAddEmployeeInfo(temp);
+      // console.log(AddEmployeeInfo["firstname"])
     }
 
     const onChangeLastnameHandler = async (event) => {
-      var temp = AddownerInfo;
+      var temp = AddEmployeeInfo;
       temp[event.target.name] = event.target.value;
-      setAddownerInfo(temp);
-      // console.log(AddownerInfo["lastname"])
+      setAddEmployeeInfo(temp);
+      // console.log(AddEmployeeInfo["lastname"])
+    }
+    const onChangeAddressHandler = async (event) => {
+        var temp = AddEmployeeInfo;
+        temp[event.target.name] = event.target.value;
+        setAddEmployeeInfo(temp);
+        // console.log(AddEmployeeInfo["lastname"])
+    }
+    const onChangeBirthdateHandler = async (event) => {
+        var temp = AddEmployeeInfo;
+        temp[event.target.name] = event.target.value;
+        setAddEmployeeInfo(temp);
+        // console.log(AddEmployeeInfo["lastname"])
+    }
+    const onChangeTaxidHandler = async (event) => {
+        var temp = AddEmployeeInfo;
+        temp[event.target.name] = event.target.value;
+        setAddEmployeeInfo(temp);
+        // console.log(AddEmployeeInfo["lastname"])
+    }
+    const onChangeHiredHandler = async (event) => {
+        var temp = AddEmployeeInfo;
+        temp[event.target.name] = event.target.value;
+        setAddEmployeeInfo(temp);
+        // console.log(AddEmployeeInfo["lastname"])
+    }
+    const onChangeEmployeeExperienceHandler = async (event) => {
+        var temp = AddEmployeeInfo;
+        temp[event.target.name] = event.target.value;
+        setAddEmployeeInfo(temp);
+        // console.log(AddEmployeeInfo["lastname"])
+    }
+    const onChangeSalaryHandler = async (event) => {
+        var temp = AddEmployeeInfo;
+        temp[event.target.name] = event.target.value;
+        setAddEmployeeInfo(temp);
+        // console.log(AddEmployeeInfo["lastname"])
     }
 
 
     const onSubmitHandler = () => {
-      console.log(AddownerInfo["username"])
-      console.log(AddownerInfo["firstname"])
-      console.log(AddownerInfo["lastname"])
-      axios.post("http://localhost:5000/mvp/employee/worker", {
+      console.log(AddEmployeeInfo["username"])
+      console.log(AddEmployeeInfo["firstname"])
+      console.log(AddEmployeeInfo["lastname"])
+      console.log(AddEmployeeInfo["address"])
+      console.log(AddEmployeeInfo["birthdate"])
+      console.log(AddEmployeeInfo["taxID"])
+      console.log(AddEmployeeInfo["hired"])
+      console.log(AddEmployeeInfo["employee_experience"])
+      console.log(AddEmployeeInfo["salary"])
+
+      axios.post("http://localhost:5000/users/employee/add", {
                     
-                    username: AddownerInfo["username"],
-                    firstname:AddownerInfo["firstname"],
-                    lastname:AddownerInfo["lastname"]
+                    username: AddEmployeeInfo["username"],
+                    first_name:AddEmployeeInfo["firstname"],
+                    last_name:AddEmployeeInfo["lastname"],
+                    address: AddEmployeeInfo["address"],
+                    birthdate:AddEmployeeInfo["birthdate"],
+                    taxID:AddEmployeeInfo["taxID"],
+                    hired: AddEmployeeInfo["hired"],
+                    employee_experience:AddEmployeeInfo["employee_experience"],
+                    salary:AddEmployeeInfo["salary"]
                 })
                 .catch((error) => {
                     alert(error.response.data.message);
@@ -76,6 +131,42 @@ const Addemployeepage = (props) => {
                         name="lastname"
                         type="text"
                         onChange={onChangeLastnameHandler}
+                    />
+                    <Entry 
+                        text={"Address: "}
+                        name="adaress"
+                        type="text"
+                        onChange={onChangeAddressHandler}
+                    />
+                    <Entry 
+                        text={"Birth Date: "}
+                        name="birthdate"
+                        type="date"
+                        onChange={onChangeBirthdateHandler}
+                    />
+                    <Entry 
+                        text={"Tax ID: "}
+                        name="taxID"
+                        type="text"
+                        onChange={onChangeTaxidHandler}
+                    />
+                    <Entry 
+                        text={"Hired: "}
+                        name="hired"
+                        type="date"
+                        onChange={onChangeHiredHandler}
+                    />
+                    <Entry 
+                        text={"Experience: "}
+                        name="employee_experience"
+                        type="int"
+                        onChange={onChangeEmployeeExperienceHandler}
+                    />
+                    <Entry 
+                        text={"Salary: "}
+                        name="salary"
+                        type="int"
+                        onChange={onChangeSalaryHandler}
                     />
                 </div>
                 <div className={classes.buttons}>

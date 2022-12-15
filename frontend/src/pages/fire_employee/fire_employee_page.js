@@ -8,43 +8,34 @@ import classes from "./fireemployeePage.module.scss";
 
 const Fireemployeepage = (props) => {
 
-    const [AddownerInfo, setAddownerInfo] = useState({
+    const [AddFireInfo, setAddFireInfo] = useState({
       username : "",
-      firstname: "",
-      lastname:""
+      id: ""
     }); 
 
     const onChangeUsernameHandler = async (event) => {
-      var temp = AddownerInfo;
+      var temp = AddFireInfo;
       temp[event.target.name] = event.target.value;
-      setAddownerInfo(temp);
-      // console.log(AddownerInfo["username"])
+      setAddFireInfo(temp);
+      // console.log(AddFireInfo["username"])
     }
 
-    const onChangeFirstnameHandler = async (event) => {
-      var temp = AddownerInfo;
+    const onChangeIDHandler = async (event) => {
+      var temp = AddFireInfo;
       temp[event.target.name] = event.target.value;
-      setAddownerInfo(temp);
-      // console.log(AddownerInfo["firstname"])
+      setAddFireInfo(temp);
+      // console.log(AddFireInfo["firstname"])
     }
 
-    const onChangeLastnameHandler = async (event) => {
-      var temp = AddownerInfo;
-      temp[event.target.name] = event.target.value;
-      setAddownerInfo(temp);
-      // console.log(AddownerInfo["lastname"])
-    }
 
 
     const onSubmitHandler = () => {
-      console.log(AddownerInfo["username"])
-      console.log(AddownerInfo["firstname"])
-      console.log(AddownerInfo["lastname"])
-      axios.post("http://localhost:5000/mvp/employee/worker", {
+      console.log(AddFireInfo["username"])
+      console.log(AddFireInfo["id"])
+      axios.post("http://localhost:5000/users/employee/fire", {
                     
-                    username: AddownerInfo["username"],
-                    firstname:AddownerInfo["firstname"],
-                    lastname:AddownerInfo["lastname"]
+                    username: AddFireInfo["username"],
+                    id:AddFireInfo["id"],
                 })
                 .catch((error) => {
                     alert(error.response.data.message);
@@ -58,24 +49,17 @@ const Fireemployeepage = (props) => {
                 <div className={classes.entrybox}>
                     
                     <Entry 
-                        text={"username: "}
+                        text={"Username: "}
                         name="username"
                         type="text"
                         onChange={onChangeUsernameHandler}
                     />
 
                     <Entry 
-                        text={"First Name: "}
-                        name="firstname"
+                        text={"Service ID: "}
+                        name="id"
                         type="text"
-                        onChange={onChangeFirstnameHandler}
-                    />
-
-                    <Entry 
-                        text={"Last Name: "}
-                        name="lastname"
-                        type="text"
-                        onChange={onChangeLastnameHandler}
+                        onChange={onChangeIDHandler}
                     />
                 </div>
                 <div className={classes.buttons}>

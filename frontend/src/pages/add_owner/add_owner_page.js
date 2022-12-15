@@ -11,7 +11,9 @@ const Addownerpage = (props) => {
     const [AddownerInfo, setAddownerInfo] = useState({
       username : "",
       firstname: "",
-      lastname:""
+      lastname:"",
+      address:'',
+      birthdate:''
     }); 
 
     const onChangeUsernameHandler = async (event) => {
@@ -34,17 +36,36 @@ const Addownerpage = (props) => {
       setAddownerInfo(temp);
       // console.log(AddownerInfo["lastname"])
     }
+    const onChangeAddressHandler = async (event) => {
+        var temp = AddownerInfo;
+        temp[event.target.name] = event.target.value;
+        setAddownerInfo(temp);
+        // console.log(AddownerInfo["lastname"])
+      }
+
+    const onChangeBirthdateHandler = async (event) => {
+        var temp = AddownerInfo;
+        temp[event.target.name] = event.target.value;
+        setAddownerInfo(temp);
+        // console.log(AddownerInfo["lastname"])
+      }
+  
 
 
     const onSubmitHandler = () => {
       console.log(AddownerInfo["username"])
       console.log(AddownerInfo["firstname"])
       console.log(AddownerInfo["lastname"])
+      console.log(AddownerInfo["address"])
+      console.log(AddownerInfo["birthdate"])
+
       axios.post("http://localhost:5000/users/owners", {
                     
                     username: AddownerInfo["username"],
-                    firstname:AddownerInfo["firstname"],
-                    lastname:AddownerInfo["lastname"]
+                    first_name:AddownerInfo["firstname"],
+                    last_name:AddownerInfo["lastname"],
+                    address:AddownerInfo["address"],
+                    birthdate:AddownerInfo["birthdate"]
                 })
                 .catch((error) => {
                     alert(error.response.data.message);
@@ -58,7 +79,7 @@ const Addownerpage = (props) => {
                 <div className={classes.entrybox}>
                     
                     <Entry 
-                        text={"username: "}
+                        text={"Username: "}
                         name="username"
                         type="text"
                         onChange={onChangeUsernameHandler}
@@ -76,6 +97,18 @@ const Addownerpage = (props) => {
                         name="lastname"
                         type="text"
                         onChange={onChangeLastnameHandler}
+                    />
+                    <Entry 
+                        text={"Address: "}
+                        name="address"
+                        type="text"
+                        onChange={onChangeAddressHandler}
+                    />
+                    <Entry 
+                        text={"Birth Date: "}
+                        name="birthdate"
+                        type="date"
+                        onChange={onChangeBirthdateHandler}
                     />
                 </div>
                 <div className={classes.buttons}>

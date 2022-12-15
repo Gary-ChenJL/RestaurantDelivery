@@ -8,43 +8,52 @@ import classes from "./addlocationPage.module.scss";
 
 const Addlocationpage = (props) => {
 
-    const [AddownerInfo, setAddownerInfo] = useState({
-      username : "",
-      firstname: "",
-      lastname:""
+    const [AddLocationInfo, setAddLocationInfo] = useState({
+      label: "",
+      x_coord: "",
+      y_coord:"",
+      space: ''
     }); 
 
-    const onChangeUsernameHandler = async (event) => {
-      var temp = AddownerInfo;
+    const onChangeLabelHandler = async (event) => {
+      var temp = AddLocationInfo;
       temp[event.target.name] = event.target.value;
-      setAddownerInfo(temp);
-      // console.log(AddownerInfo["username"])
+      setAddLocationInfo(temp);
+      // console.log(AddLocationInfo["username"])
     }
 
-    const onChangeFirstnameHandler = async (event) => {
-      var temp = AddownerInfo;
+    const onChangeXcoordHandler = async (event) => {
+      var temp = AddLocationInfo;
       temp[event.target.name] = event.target.value;
-      setAddownerInfo(temp);
-      // console.log(AddownerInfo["firstname"])
+      setAddLocationInfo(temp);
+      // console.log(AddLocationInfo["firstname"])
     }
 
-    const onChangeLastnameHandler = async (event) => {
-      var temp = AddownerInfo;
+    const onChangeYcoordHandler = async (event) => {
+      var temp = AddLocationInfo;
       temp[event.target.name] = event.target.value;
-      setAddownerInfo(temp);
-      // console.log(AddownerInfo["lastname"])
+      setAddLocationInfo(temp);
+      // console.log(AddLocationInfo["lastname"])
+    }
+    const onChangeSpaceHandler = async (event) => {
+        var temp = AddLocationInfo;
+        temp[event.target.name] = event.target.value;
+        setAddLocationInfo(temp);
+        // console.log(AddLocationInfo["lastname"])
     }
 
 
     const onSubmitHandler = () => {
-      console.log(AddownerInfo["username"])
-      console.log(AddownerInfo["firstname"])
-      console.log(AddownerInfo["lastname"])
-      axios.post("http://localhost:5000/mvp/employee/worker", {
+      console.log(AddLocationInfo["label"])
+      console.log(AddLocationInfo["x_coord"])
+      console.log(AddLocationInfo["y_coord"])
+      console.log(AddLocationInfo["space"])
+      axios.post("http://localhost:5000/locations/add", {
                     
-                    username: AddownerInfo["username"],
-                    firstname:AddownerInfo["firstname"],
-                    lastname:AddownerInfo["lastname"]
+                    label: AddLocationInfo["label"],
+                    x:AddLocationInfo["x_coord"],
+                    y:AddLocationInfo["y_coord"],
+                    space:AddLocationInfo["space"]
                 })
                 .catch((error) => {
                     alert(error.response.data.message);
@@ -58,24 +67,30 @@ const Addlocationpage = (props) => {
                 <div className={classes.entrybox}>
                     
                     <Entry 
-                        text={"username: "}
-                        name="username"
+                        text={"Label: "}
+                        name="label"
                         type="text"
-                        onChange={onChangeUsernameHandler}
+                        onChange={onChangeLabelHandler}
                     />
 
                     <Entry 
-                        text={"First Name: "}
-                        name="firstname"
-                        type="text"
-                        onChange={onChangeFirstnameHandler}
+                        text={"X Coordinate: "}
+                        name="x_coord"
+                        type="int"
+                        onChange={onChangeXcoordHandler}
                     />
 
                     <Entry 
-                        text={"Last Name: "}
-                        name="lastname"
-                        type="text"
-                        onChange={onChangeLastnameHandler}
+                        text={"Y Coordinate: "}
+                        name="y_coord"
+                        type="int"
+                        onChange={onChangeYcoordHandler}
+                    />
+                    <Entry 
+                        text={"Space: "}
+                        name="space"
+                        type="int"
+                        onChange={onChangeSpaceHandler}
                     />
                 </div>
                 <div className={classes.buttons}>
