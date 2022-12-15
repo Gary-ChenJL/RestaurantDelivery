@@ -136,7 +136,7 @@ const Addemployeepage = (props) => {
                     />
                     <Entry 
                         text={"Address: "}
-                        name="adaress"
+                        name="address"
                         type="text"
                         onChange={onChangeAddressHandler}
                     />

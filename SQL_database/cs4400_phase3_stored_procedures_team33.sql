@@ -23,15 +23,16 @@ delimiter //
 create procedure add_owner (in ip_username varchar(40), in ip_first_name varchar(100),
 	in ip_last_name varchar(100), in ip_address varchar(500), in ip_birthdate date)
 sp_main: begin
-	if (not exists(select * from users where username = ip_username))
-    or (select count(*) from users where username = ip_username)>=1 
+	if (select count(*) from users where username = ip_username)>=1 
     or exists(select * from employees where username = ip_username)
+    or ip_username is null or ip_first_name is null or ip_last_name is null or ip_address is null or ip_birthdate is null 
+    or ip_birthdate is null
     then 
     SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Call failed, inputs failed to satisfy procedure requirements';
     leave sp_main; end if;
 	insert into users values (ip_username, ip_first_name, ip_last_name, ip_address, ip_birthdate);
     insert into restaurant_owners values (ip_username);
-    alter table employees add constraint check_owner check (username <> ip_username);
+    -- alter table employees add constraint check_owner check (username <> ip_username);
     -- ensure new owner has a unique username
 end //
 delimiter ;
@@ -48,9 +49,11 @@ create procedure add_employee (in ip_username varchar(40), in ip_first_name varc
     in ip_taxID varchar(40), in ip_hired date, in ip_employee_experience integer,
     in ip_salary integer)
 sp_main: begin
-	if (not exists(select * from users where username = ip_username))
+	if (exists(select * from restaurant_owners where username = ip_username))
     or (select count(*) from employees where username = ip_username)>=1 
     or (select count(*) from employees where taxID = ip_taxID)>=1 
+    or ip_username is null or ip_first_name is null or ip_last_name or ip_address is null 
+    or ip_birthdate is null or ip_taxID is null or ip_hired is null or ip_employee_experience is null or ip_salary is null
     then 
     SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Add_employee failed, inputs failed to satisfy procedure requirements';
     leave sp_main; end if;
