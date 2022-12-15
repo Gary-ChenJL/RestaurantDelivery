@@ -8,64 +8,65 @@ import classes from "./displayserviceviewPage.module.scss";
 
 const Displayserviceviewpage = (props) => {
 
+
+    const [MSGINFO, SetMSGINFO] = useState({
+        msg:[]
+      }); 
+
+
     const [AddownerInfo, setAddownerInfo] = useState({
       username : "",
       firstname: "",
       lastname:""
     }); 
 
-    const onChangeUsernameHandler = async (event) => {
-      var temp = AddownerInfo;
-      temp[event.target.name] = event.target.value;
-      setAddownerInfo(temp);
-      // console.log(AddownerInfo["username"])
-    }
+    function SaveMSG(obj){
+        console.log(obj)
+        const data = obj.result;
 
-    const onChangeFirstnameHandler = async (event) => {
-      var temp = AddownerInfo;
-      temp[event.target.name] = event.target.value;
-      setAddownerInfo(temp);
-      // console.log(AddownerInfo["firstname"])
-    }
+        MSGINFO.msg = data.map(({ id, long_name, home_base, manager, revenue, ingredient_carried, cost_carried, weight_carried}) => 
+        `id: ${id}, long_name:${long_name}, home_base:${home_base}, manager:${manager}, revenue:${revenue}, ingredient_carried:${ingredient_carried}, cost_carried: ${cost_carried}, weight_carried: ${weight_carried}  `);
 
-    const onChangeLastnameHandler = async (event) => {
-      var temp = AddownerInfo;
-      temp[event.target.name] = event.target.value;
-      setAddownerInfo(temp);
-      // console.log(AddownerInfo["lastname"])
     }
-
 
     const onSubmitHandler = () => {
-      console.log(AddownerInfo["username"])
-      console.log(AddownerInfo["firstname"])
-      console.log(AddownerInfo["lastname"])
-      axios.post("http://localhost:5000/mvp/employee/worker", {
-                    
-                    username: AddownerInfo["username"],
-                    firstname:AddownerInfo["firstname"],
-                    lastname:AddownerInfo["lastname"]
-                })
+      axios.get("http://localhost:5000/services/view/service")
+                .then(data => SaveMSG(data.data))
                 .catch((error) => {
                     alert(error.response.data.message);
                 });
+
     };
+
+    const onShow = () => {
+        // msg = MSGINFO.msg;
+        const msg1 = MSGINFO.msg
+        SetMSGINFO({
+            msg: msg1
+        })
+        console.log(MSGINFO.msg)
+      };
     
-    return (
+      return (
         <div className={classes.displayviewPage}>  
             <div className={classes.content}>
                 <h1 className={classes.title}>Display Service View</h1>
-                <div className={classes.entrybox}>
-                </div>
-                <div className={classes.buttons}>
-                    <button className={classes.back}>
+                <button className={classes.back}>
                         <Link to="/ViewPage" className={classes.link_back}>
                             Back
                         </Link>
                     </button>
                     <button className={classes.create} onClick={onSubmitHandler}>
+                        Fetch
+                    </button>
+                    <button className={classes.create} onClick={onShow}>
                         Show
                     </button>
+                <div className={classes.entrybox}>
+                <p>{MSGINFO.msg}</p>
+                </div>
+                <div className={classes.buttons}>
+                    
                 </div>
             </div>
         </div>

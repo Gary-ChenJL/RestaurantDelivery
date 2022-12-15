@@ -65,6 +65,8 @@ const Loaddronepage = (props) => {
                     barcode:AddownerInfo["barcode"],
                     morepackage:AddownerInfo["morepackage"],
                     price:AddownerInfo["price"]
+                }).then(() => {
+                    alert("Success")
                 })
                 .catch((error) => {
                     alert(error.response.data.message);

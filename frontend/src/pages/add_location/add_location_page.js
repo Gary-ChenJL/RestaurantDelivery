@@ -54,6 +54,8 @@ const Addlocationpage = (props) => {
                     x:AddLocationInfo["x_coord"],
                     y:AddLocationInfo["y_coord"],
                     space:AddLocationInfo["space"]
+                }).then(() => {
+                    alert("Success")
                 })
                 .catch((error) => {
                     alert(error.response.data.message);

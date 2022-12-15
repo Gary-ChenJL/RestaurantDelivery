@@ -55,6 +55,8 @@ const Addrestaurantpage = (props) => {
                     rating:AddownerInfo["rating"],
                     spent:AddownerInfo["spent"],
                     location:AddownerInfo["location"]
+                }).then(() => {
+                    alert("Success")
                 })
                 .catch((error) => {
                     alert(error.response.data.message);

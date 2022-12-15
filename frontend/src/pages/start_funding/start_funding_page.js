@@ -34,6 +34,8 @@ const Startfundingpage = (props) => {
                     
                     owner: AddownerInfo["owner"],
                     longname:AddownerInfo["longname"]
+                }).then(() => {
+                    alert("Success")
                 })
                 .catch((error) => {
                     alert(error.response.data.message);

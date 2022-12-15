@@ -54,6 +54,8 @@ const Addservicepage = (props) => {
                     longname:AddServiceInfo["longname"],
                     homebase:AddServiceInfo["homebase"],
                     manager:AddServiceInfo["manager"]
+                }).then(() => {
+                    alert("Success")
                 })
                 .catch((error) => {
                     alert(error.response.data.message);

@@ -65,6 +65,8 @@ const Purchaseingredientpage = (props) => {
                     tag:AddownerInfo["tag"],
                     barcode:AddownerInfo["barcode"],
                     quantity:AddownerInfo["quantity"]
+                }).then(() => {
+                    alert("Success")
                 })
                 .catch((error) => {
                     alert(error.response.data.message);

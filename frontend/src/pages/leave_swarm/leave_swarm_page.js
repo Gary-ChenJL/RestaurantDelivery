@@ -35,6 +35,8 @@ const Leaveswarmpage = (props) => {
                     
                     id: AddownerInfo["id"],
                     tag:AddownerInfo["tag"]
+                }).then(() => {
+                    alert("Success")
                 })
                 .catch((error) => {
                     alert(error.response.data.message);

@@ -45,6 +45,8 @@ const Flydronepage = (props) => {
                     id: AddFlydroneInfo["id"],
                     tag:AddFlydroneInfo["tag"],
                     destination:AddFlydroneInfo["destination"]
+                }).then(() => {
+                    alert("Success")
                 })
                 .catch((error) => {
                     alert(error.response.data.message);

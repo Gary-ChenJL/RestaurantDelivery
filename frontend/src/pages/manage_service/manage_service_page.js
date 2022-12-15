@@ -35,6 +35,8 @@ const Manageservicepage = (props) => {
                     
                     username: AddownerInfo["username"],
                     id:AddownerInfo["id"]
+                }).then(() => {
+                    alert("Success")
                 })
                 .catch((error) => {
                     alert(error.response.data.message);

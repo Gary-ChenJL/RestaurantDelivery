@@ -25,6 +25,8 @@ const Removepilotrolepage = (props) => {
       axios.post("http://localhost:5000/users/pilot/remove", {
                     
                     username: AddownerInfo["username"]
+                }).then(() => {
+                    alert("Success")
                 })
                 .catch((error) => {
                     alert(error.response.data.message);

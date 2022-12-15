@@ -28,6 +28,8 @@ const Addworkerrolepage = (props) => {
                     
                     username: AddWorkerInfo["username"],
 
+                }).then(() => {
+                    alert("Success")
                 })
                 .catch((error) => {
                     alert(error.response.data.message);
