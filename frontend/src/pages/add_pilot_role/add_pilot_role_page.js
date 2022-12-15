@@ -46,6 +46,9 @@ const Addpilotrolepage = (props) => {
                     licenseID:AddPilotroleInfo["licenseID"],
                     pilot_experience:AddPilotroleInfo["pilot_experience"]
                 })
+                .then(() => {
+                    alert("Success")
+                })
                 .catch((error) => {
                     alert(error.response.data.message);
                 });

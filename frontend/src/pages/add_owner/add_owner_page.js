@@ -66,6 +66,8 @@ const Addownerpage = (props) => {
                     last_name:AddownerInfo["lastname"],
                     address:AddownerInfo["address"],
                     birthdate:AddownerInfo["birthdate"]
+                }).then(() => {
+                    alert("Success")
                 })
                 .catch((error) => {
                     alert(error.response.data.message);
