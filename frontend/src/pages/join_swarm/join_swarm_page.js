@@ -9,26 +9,26 @@ import classes from "./joinswarmPage.module.scss";
 const Joinswarmpage = (props) => {
 
     const [AddownerInfo, setAddownerInfo] = useState({
-      username : "",
-      firstname: "",
-      lastname:""
+      id : "",
+      tag: "",
+      leaderTag:""
     }); 
 
-    const onChangeUsernameHandler = async (event) => {
+    const onChangeIDHandler = async (event) => {
       var temp = AddownerInfo;
       temp[event.target.name] = event.target.value;
       setAddownerInfo(temp);
       // console.log(AddownerInfo["username"])
     }
 
-    const onChangeFirstnameHandler = async (event) => {
+    const onChangeTagHandler = async (event) => {
       var temp = AddownerInfo;
       temp[event.target.name] = event.target.value;
       setAddownerInfo(temp);
       // console.log(AddownerInfo["firstname"])
     }
 
-    const onChangeLastnameHandler = async (event) => {
+    const onChangeLeaderTagHandler = async (event) => {
       var temp = AddownerInfo;
       temp[event.target.name] = event.target.value;
       setAddownerInfo(temp);
@@ -37,14 +37,14 @@ const Joinswarmpage = (props) => {
 
 
     const onSubmitHandler = () => {
-      console.log(AddownerInfo["username"])
-      console.log(AddownerInfo["firstname"])
-      console.log(AddownerInfo["lastname"])
-      axios.post("http://localhost:5000/mvp/employee/worker", {
+      console.log(AddownerInfo["id"])
+      console.log(AddownerInfo["tag"])
+      console.log(AddownerInfo["leaderTag"])
+      axios.post("http://localhost:5000/services/drone/joinswarm", {
                     
-                    username: AddownerInfo["username"],
-                    firstname:AddownerInfo["firstname"],
-                    lastname:AddownerInfo["lastname"]
+                    id: AddownerInfo["id"],
+                    tag:AddownerInfo["tag"],
+                    leaderTag:AddownerInfo["leaderTag"]
                 })
                 .catch((error) => {
                     alert(error.response.data.message);
@@ -58,24 +58,24 @@ const Joinswarmpage = (props) => {
                 <div className={classes.entrybox}>
                     
                     <Entry 
-                        text={"username: "}
-                        name="username"
+                        text={"id: "}
+                        name="id"
                         type="text"
-                        onChange={onChangeUsernameHandler}
+                        onChange={onChangeIDHandler}
                     />
 
                     <Entry 
-                        text={"First Name: "}
-                        name="firstname"
+                        text={"tag: "}
+                        name="tag"
                         type="text"
-                        onChange={onChangeFirstnameHandler}
+                        onChange={onChangeTagHandler}
                     />
 
                     <Entry 
-                        text={"Last Name: "}
-                        name="lastname"
+                        text={"leaderTag: "}
+                        name="leaderTag"
                         type="text"
-                        onChange={onChangeLastnameHandler}
+                        onChange={onChangeLeaderTagHandler}
                     />
                 </div>
                 <div className={classes.buttons}>

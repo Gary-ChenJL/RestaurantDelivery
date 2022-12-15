@@ -9,42 +9,21 @@ import classes from "./removeingredientPage.module.scss";
 const Removeingredientpage = (props) => {
 
     const [AddownerInfo, setAddownerInfo] = useState({
-      username : "",
-      firstname: "",
-      lastname:""
+        barcode : ""
     }); 
 
-    const onChangeUsernameHandler = async (event) => {
+    const onChangeBarcodeHandler = async (event) => {
       var temp = AddownerInfo;
       temp[event.target.name] = event.target.value;
       setAddownerInfo(temp);
       // console.log(AddownerInfo["username"])
     }
 
-    const onChangeFirstnameHandler = async (event) => {
-      var temp = AddownerInfo;
-      temp[event.target.name] = event.target.value;
-      setAddownerInfo(temp);
-      // console.log(AddownerInfo["firstname"])
-    }
-
-    const onChangeLastnameHandler = async (event) => {
-      var temp = AddownerInfo;
-      temp[event.target.name] = event.target.value;
-      setAddownerInfo(temp);
-      // console.log(AddownerInfo["lastname"])
-    }
-
-
     const onSubmitHandler = () => {
-      console.log(AddownerInfo["username"])
-      console.log(AddownerInfo["firstname"])
-      console.log(AddownerInfo["lastname"])
-      axios.post("http://localhost:5000/mvp/employee/worker", {
+      console.log(AddownerInfo["barcode"])
+      axios.post("http://localhost:5000/services/ingredient/remove", {
                     
-                    username: AddownerInfo["username"],
-                    firstname:AddownerInfo["firstname"],
-                    lastname:AddownerInfo["lastname"]
+                    barcode: AddownerInfo["barcode"]
                 })
                 .catch((error) => {
                     alert(error.response.data.message);
@@ -58,25 +37,12 @@ const Removeingredientpage = (props) => {
                 <div className={classes.entrybox}>
                     
                     <Entry 
-                        text={"username: "}
-                        name="username"
+                        text={"barcode: "}
+                        name="barcode"
                         type="text"
-                        onChange={onChangeUsernameHandler}
+                        onChange={onChangeBarcodeHandler}
                     />
 
-                    <Entry 
-                        text={"First Name: "}
-                        name="firstname"
-                        type="text"
-                        onChange={onChangeFirstnameHandler}
-                    />
-
-                    <Entry 
-                        text={"Last Name: "}
-                        name="lastname"
-                        type="text"
-                        onChange={onChangeLastnameHandler}
-                    />
                 </div>
                 <div className={classes.buttons}>
                     <button className={classes.back}>

@@ -10,8 +10,8 @@ const Takeoverdronepage = (props) => {
 
     const [AddownerInfo, setAddownerInfo] = useState({
       username : "",
-      firstname: "",
-      lastname:""
+      id: "",
+      tag:""
     }); 
 
     const onChangeUsernameHandler = async (event) => {
@@ -21,14 +21,14 @@ const Takeoverdronepage = (props) => {
       // console.log(AddownerInfo["username"])
     }
 
-    const onChangeFirstnameHandler = async (event) => {
+    const onChangeIDHandler = async (event) => {
       var temp = AddownerInfo;
       temp[event.target.name] = event.target.value;
       setAddownerInfo(temp);
       // console.log(AddownerInfo["firstname"])
     }
 
-    const onChangeLastnameHandler = async (event) => {
+    const onChangeTagHandler = async (event) => {
       var temp = AddownerInfo;
       temp[event.target.name] = event.target.value;
       setAddownerInfo(temp);
@@ -38,13 +38,13 @@ const Takeoverdronepage = (props) => {
 
     const onSubmitHandler = () => {
       console.log(AddownerInfo["username"])
-      console.log(AddownerInfo["firstname"])
-      console.log(AddownerInfo["lastname"])
-      axios.post("http://localhost:5000/mvp/employee/worker", {
+      console.log(AddownerInfo["id"])
+      console.log(AddownerInfo["tag"])
+      axios.post("http://localhost:5000/services/drone/takeover", {
                     
                     username: AddownerInfo["username"],
-                    firstname:AddownerInfo["firstname"],
-                    lastname:AddownerInfo["lastname"]
+                    id:AddownerInfo["id"],
+                    tag:AddownerInfo["tag"]
                 })
                 .catch((error) => {
                     alert(error.response.data.message);
@@ -58,24 +58,24 @@ const Takeoverdronepage = (props) => {
                 <div className={classes.entrybox}>
                     
                     <Entry 
-                        text={"username: "}
+                        text={"Username: "}
                         name="username"
                         type="text"
                         onChange={onChangeUsernameHandler}
                     />
 
                     <Entry 
-                        text={"First Name: "}
-                        name="firstname"
+                        text={"ID: "}
+                        name="id"
                         type="text"
-                        onChange={onChangeFirstnameHandler}
+                        onChange={onChangeIDHandler}
                     />
 
                     <Entry 
-                        text={"Last Name: "}
-                        name="lastname"
+                        text={"Tag: "}
+                        name="tag"
                         type="text"
-                        onChange={onChangeLastnameHandler}
+                        onChange={onChangeTagHandler}
                     />
                 </div>
                 <div className={classes.buttons}>

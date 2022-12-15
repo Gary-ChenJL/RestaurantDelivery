@@ -4,14 +4,12 @@ import Dropdown from 'react-dropdown';
 import Entry from "../../components/Entry";
 import axios from "axios";
 
-import classes from "./removepilotviewPage.module.scss";
+import classes from "./removepilotrolePage.module.scss";
 
-const Removepilotviewpage = (props) => {
+const Removepilotrolepage = (props) => {
 
     const [AddownerInfo, setAddownerInfo] = useState({
-      username : "",
-      firstname: "",
-      lastname:""
+      username : ""
     }); 
 
     const onChangeUsernameHandler = async (event) => {
@@ -21,30 +19,12 @@ const Removepilotviewpage = (props) => {
       // console.log(AddownerInfo["username"])
     }
 
-    const onChangeFirstnameHandler = async (event) => {
-      var temp = AddownerInfo;
-      temp[event.target.name] = event.target.value;
-      setAddownerInfo(temp);
-      // console.log(AddownerInfo["firstname"])
-    }
-
-    const onChangeLastnameHandler = async (event) => {
-      var temp = AddownerInfo;
-      temp[event.target.name] = event.target.value;
-      setAddownerInfo(temp);
-      // console.log(AddownerInfo["lastname"])
-    }
-
 
     const onSubmitHandler = () => {
       console.log(AddownerInfo["username"])
-      console.log(AddownerInfo["firstname"])
-      console.log(AddownerInfo["lastname"])
-      axios.post("http://localhost:5000/mvp/employee/worker", {
+      axios.post("http://localhost:5000/users/pilot/remove", {
                     
-                    username: AddownerInfo["username"],
-                    firstname:AddownerInfo["firstname"],
-                    lastname:AddownerInfo["lastname"]
+                    username: AddownerInfo["username"]
                 })
                 .catch((error) => {
                     alert(error.response.data.message);
@@ -52,9 +32,9 @@ const Removepilotviewpage = (props) => {
     };
     
     return (
-        <div className={classes.removepilotviewPage}>  
+        <div className={classes.removepilotrolePage}>  
             <div className={classes.content}>
-                <h1 className={classes.title}>Remove Pilot View</h1>
+                <h1 className={classes.title}>Remove Pilot Role</h1>
                 <div className={classes.entrybox}>
                     
                     <Entry 
@@ -62,20 +42,6 @@ const Removepilotviewpage = (props) => {
                         name="username"
                         type="text"
                         onChange={onChangeUsernameHandler}
-                    />
-
-                    <Entry 
-                        text={"First Name: "}
-                        name="firstname"
-                        type="text"
-                        onChange={onChangeFirstnameHandler}
-                    />
-
-                    <Entry 
-                        text={"Last Name: "}
-                        name="lastname"
-                        type="text"
-                        onChange={onChangeLastnameHandler}
                     />
                 </div>
                 <div className={classes.buttons}>
@@ -93,4 +59,4 @@ const Removepilotviewpage = (props) => {
     );
 };
 
-export default Removepilotviewpage;
+export default Removepilotrolepage;
