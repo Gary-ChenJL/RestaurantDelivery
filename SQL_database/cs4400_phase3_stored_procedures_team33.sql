@@ -23,14 +23,15 @@ delimiter //
 create procedure add_owner (in ip_username varchar(40), in ip_first_name varchar(100),
 	in ip_last_name varchar(100), in ip_address varchar(500), in ip_birthdate date)
 sp_main: begin
-	if (select count(*) from users where username = ip_username)>=1 
+	if (not exists(select * from users where username = ip_username))
+    or (select count(*) from users where username = ip_username)>=1 
     or exists(select * from employees where username = ip_username)
     then 
     SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Call failed, inputs failed to satisfy procedure requirements';
     leave sp_main; end if;
 	insert into users values (ip_username, ip_first_name, ip_last_name, ip_address, ip_birthdate);
     insert into restaurant_owners values (ip_username);
-    -- alter table employees add constraint check_owner check (username <> ip_username);
+    alter table employees add constraint check_owner check (username <> ip_username);
     -- ensure new owner has a unique username
 end //
 delimiter ;
@@ -47,10 +48,11 @@ create procedure add_employee (in ip_username varchar(40), in ip_first_name varc
     in ip_taxID varchar(40), in ip_hired date, in ip_employee_experience integer,
     in ip_salary integer)
 sp_main: begin
-	if (select count(*) from employees where username = ip_username)>=1 
+	if (not exists(select * from users where username = ip_username))
+    or (select count(*) from employees where username = ip_username)>=1 
     or (select count(*) from employees where taxID = ip_taxID)>=1 
     then 
-    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Call failed, inputs failed to satisfy procedure requirements';
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Add_employee failed, inputs failed to satisfy procedure requirements';
     leave sp_main; end if;
     insert into users values (ip_username, ip_first_name, ip_last_name, ip_address, ip_birthdate);
 	insert into employees values (ip_username, ip_taxID, ip_hired, ip_employee_experience, ip_salary);
@@ -70,7 +72,10 @@ create procedure add_pilot_role (in ip_username varchar(40), in ip_licenseID var
 	in ip_pilot_experience integer)
 sp_main: begin
 	if (select count(*) from employees where username = ip_username)=0 
-    or (select count(*) from pilots where licenseID = ip_licenseID)>=1 then leave sp_main; end if;
+    or (select count(*) from pilots where licenseID = ip_licenseID)>=1 
+    then 
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Call failed, inputs failed to satisfy procedure requirements';
+    leave sp_main; end if;
 	insert into pilots values (ip_username, ip_licenseID, ip_pilot_experience);
     -- ensure new employee exists
     -- ensure new pilot has a unique license identifier
@@ -153,7 +158,10 @@ create procedure add_restaurant (in ip_long_name varchar(40), in ip_rating integ
 sp_main: begin
 	if (select count(*) from restaurants where long_name = ip_long_name)>=1 
     or (select count(*) from locations where label = ip_location)=0 
-    or ip_rating not between 1 and 5 then leave sp_main; end if;
+    or ip_rating not between 1 and 5 
+    then 
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Call failed, inputs failed to satisfy procedure requirements';
+    leave sp_main; end if;
 	insert into restaurants values (ip_long_name, ip_rating, ip_spent, ip_location, null);
 	-- ensure new restaurant doesn't already exist
     -- ensure that the location is valid
@@ -173,7 +181,10 @@ create procedure add_service (in ip_id varchar(40), in ip_long_name varchar(100)
 sp_main: begin
 	if (select count(*) from delivery_services where id = ip_id)>=1 
     or (select count(*) from locations where label = ip_home_base)=0 
-    or (select count(*) from workers where username = ip_manager)=0 then leave sp_main; end if;
+    or (select count(*) from workers where username = ip_manager)=0 
+    then 
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Call failed, inputs failed to satisfy procedure requirements';
+    leave sp_main; end if;
 	insert into delivery_services values (ip_id, ip_long_name, ip_home_base, ip_manager);
 	-- ensure new delivery service doesn't already exist
     -- ensure that the home base location is valid
@@ -197,7 +208,9 @@ sp_main: begin
     -- ensure that the coordinate combination is distinct
 	if (select count(*) from locations where label = ip_label) >= 1
     or (select count(*) from locations where (x_coord = ip_x_coord and y_coord = ip_y_coord))>=1 
-		then leave sp_main; end if;
+	then 
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Call failed, inputs failed to satisfy procedure requirements';
+    leave sp_main; end if;
 	insert into locations values (ip_label, ip_x_coord, ip_y_coord, ip_space);
 end //
 delimiter ;
@@ -215,7 +228,9 @@ sp_main: begin
 	-- ensure the owner and restaurant are valid
 	if (select count(*) from restaurant_owners where username = ip_owner) = 0
     or (select count(*) from restaurants where long_name = ip_long_name) = 0 
-		then leave sp_main; end if;
+	then 
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Call failed, inputs failed to satisfy procedure requirements';
+    leave sp_main; end if;
 	update restaurants set funded_by = ip_owner where long_name = ip_long_name;
 end //
 delimiter ;
@@ -322,7 +337,9 @@ sp_main: begin
 	or (select count(*) from pilots where username = ip_username) = 0
 	or (select count(*) from drones where ((swarm_id = ip_id and swarm_tag = ip_tag)
 		or (id = ip_id and tag = ip_tag and swarm_id is null and swarm_tag is null))) = 0
-		then leave sp_main; end if;
+		then 
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Call failed, inputs failed to satisfy procedure requirements';
+        leave sp_main; end if;
 	update drones set flown_by = ip_username where (id = ip_id and tag = ip_tag);
 end //
 delimiter ;
@@ -350,7 +367,9 @@ sp_main: begin
 	or (select count(*) from drones where (flown_by = null and id = ip_id and tag = ip_swarm_leader_tag)) >= 1
 	or ip_tag = ip_swarm_leader_tag
 	or (select hover from drones where (id = ip_id and tag = ip_tag)) != (select hover from drones where (id = ip_id and tag = ip_swarm_leader_tag))
-		then leave sp_main; end if;
+		then 
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Call failed, inputs failed to satisfy procedure requirements';
+        leave sp_main; end if;
 	update drones set swarm_id = ip_id, swarm_tag = ip_swarm_leader_tag, flown_by = null where (id = ip_id and tag = ip_tag);
 end //
 delimiter ;
@@ -366,7 +385,10 @@ create procedure leave_swarm (in ip_id varchar(40), in ip_swarm_tag integer)
 sp_main: begin
     if (select swarm_id from drones where id = ip_id and tag = ip_swarm_tag) is null 
     or (select swarm_tag from drones where id = ip_id and tag = ip_swarm_tag) is null 
-    or (select count(*) from drones where id = ip_id and tag = ip_swarm_tag) = 0 then leave sp_main; end if;
+    or (select count(*) from drones where id = ip_id and tag = ip_swarm_tag) = 0 
+    then 
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Call failed, inputs failed to satisfy procedure requirements';
+    leave sp_main; end if;
     drop table if exists drone_duplicate;
     create table drone_duplicate as select * from drones;
     update drones 
@@ -412,6 +434,7 @@ sp_main: begin
         end if;
 		leave sp_main; 
     end if;
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Call failed, inputs failed to satisfy procedure requirements';
 end //
 	
 delimiter ;
@@ -432,6 +455,7 @@ sp_main: begin
 		update drones set fuel = fuel + ip_more_fuel where tag = ip_tag and id = ip_id;
 		leave sp_main;
     end if;
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Call failed, inputs failed to satisfy procedure requirements';
 end //
 delimiter ;
 
@@ -455,6 +479,7 @@ begin
 		from (select x_coord, y_coord from locations where label = ip_departure) as departure,
         (select x_coord, y_coord from locations where label = ip_arrival) as arrival);
 	end if;
+    
 end //
 delimiter ;
 
@@ -481,6 +506,7 @@ sp_main: begin
 		update locations set space = space - size where label = ip_destination;
         
     end if;
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Call failed, inputs failed to satisfy procedure requirements';
 end //
 delimiter ;
 
@@ -515,6 +541,7 @@ sp_main: begin
 		update drones set sales = sales + money where tag = ip_tag and id = ip_id;
 		update restaurants set spent = spent + money where long_name = ip_long_name;
     end if;
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Call failed, inputs failed to satisfy procedure requirements';
 end //
 delimiter ;
 
@@ -534,6 +561,7 @@ sp_main: begin
     then
 		delete from ingredients where barcode = ip_barcode;
     end if;
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Call failed, inputs failed to satisfy procedure requirements';
 end //
 delimiter ;
 
@@ -557,6 +585,7 @@ sp_main: begin
 		update locations set space = space + 1 where label = (select hover from drones where tag = ip_tag and id = ip_id);
 		delete from drones where tag = ip_tag and id = ip_id;
     end if;
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Call failed, inputs failed to satisfy procedure requirements';
 end //
 delimiter ;
 
