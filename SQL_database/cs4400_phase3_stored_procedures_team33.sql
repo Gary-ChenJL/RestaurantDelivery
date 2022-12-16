@@ -112,7 +112,7 @@ delimiter //
 create procedure add_ingredient (in ip_barcode varchar(40), in ip_iname varchar(100),
 	in ip_weight integer)
 sp_main: begin
-	if (select count(*) from ingredients where iname = ip_iname)>=1 
+	if (select count(*) from ingredients where barcode = ip_barcode)>=1 
     then SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Call failed, inputs failed to satisfy procedure requirements';
     leave sp_main; end if;
 	insert into ingredients values (ip_barcode, ip_iname, ip_weight);
@@ -136,6 +136,7 @@ sp_main: begin
 	if (select count(*) from drones where id = ip_id and tag=ip_tag)>=1 
     or (select count(*) from delivery_services where id = ip_id)=0 
     or (select count(*) from pilots where username = ip_flown_by)=0 
+    or (select id from works_for where username = ip_flown_by) <> ip_id
     then 
     SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Call failed, inputs failed to satisfy procedure requirements';
     leave sp_main; end if;
@@ -214,6 +215,7 @@ sp_main: begin
 	then 
     SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Call failed, inputs failed to satisfy procedure requirements';
     leave sp_main; end if;
+    
 	insert into locations values (ip_label, ip_x_coord, ip_y_coord, ip_space);
 end //
 delimiter ;
@@ -253,7 +255,7 @@ sp_main: begin
 	-- ensure that the employee and delivery service are valid
     -- ensure that the employee isn't a manager for another service
 	-- ensure that the employee isn't actively controlling drones for another service
-	if (select count(*) from work_for where username = ip_username) >= 1
+	if (select count(*) from work_for where username = ip_username and id = ip_id) >= 1
     or (select count(*) from employees where username = ip_username) = 0
 	or (select count(*) from delivery_services where id = ip_id) = 0
 	or (select count(*) from delivery_services where manager = ip_username) >= 1
@@ -436,7 +438,7 @@ sp_main: begin
 			insert into payload values (ip_id, ip_tag, ip_barcode, ip_more_packages, ip_price);
         end if;
 		leave sp_main; 
-    end if;
+    leave sp_main; end if;
     SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Call failed, inputs failed to satisfy procedure requirements';
 end //
 	
@@ -508,7 +510,7 @@ sp_main: begin
         update drones set hover = ip_destination, fuel = fuel - fuel_used where (tag = ip_tag and id = ip_id) or (swarm_tag = ip_tag and swarm_id = ip_id);
 		update locations set space = space - size where label = ip_destination;
         
-    end if;
+    leave sp_main; end if;
     SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Call failed, inputs failed to satisfy procedure requirements';
 end //
 delimiter ;
@@ -543,7 +545,7 @@ sp_main: begin
 		update payload set quantity = quantity - ip_quantity where tag = ip_tag and id = ip_id and barcode = ip_barcode;
 		update drones set sales = sales + money where tag = ip_tag and id = ip_id;
 		update restaurants set spent = spent + money where long_name = ip_long_name;
-    end if;
+    leave sp_main; end if;
     SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Call failed, inputs failed to satisfy procedure requirements';
 end //
 delimiter ;
@@ -563,7 +565,7 @@ sp_main: begin
     and (not exists(select * from payload where barcode = ip_barcode))
     then
 		delete from ingredients where barcode = ip_barcode;
-    end if;
+    leave sp_main; end if;
     SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Call failed, inputs failed to satisfy procedure requirements';
 end //
 delimiter ;
@@ -587,7 +589,7 @@ sp_main: begin
 	then
 		update locations set space = space + 1 where label = (select hover from drones where tag = ip_tag and id = ip_id);
 		delete from drones where tag = ip_tag and id = ip_id;
-    end if;
+    leave sp_main; end if;
     SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Call failed, inputs failed to satisfy procedure requirements';
 end //
 delimiter ;

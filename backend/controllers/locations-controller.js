@@ -11,7 +11,7 @@ const addRestaurant = async (req, res, next) => {
 };
 
 const addLocation = async (req, res, next) => {
-    let sql = `CALL add_restaurant(?,?,?,?)`;
+    let sql = `CALL add_location(?,?,?,?)`;
     const { label, x, y, space} = req.body;
     pool.query(sql, [ label, x, y, space], (err, result) => {
         if (err) return next(new Error(err.message));
@@ -21,7 +21,7 @@ const addLocation = async (req, res, next) => {
 };
 
 const startFunding = async (req, res, next) => {
-    let sql = `CALL add_restaurant(?,?)`;
+    let sql = `CALL start_funding(?,?)`;
     const { owner, longname} = req.body;
     pool.query(sql, [ owner, longname], (err, result) => {
         if (err) return next(new Error(err.message));

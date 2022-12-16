@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.post("/employee/worker", usersController.addWorkerRole);
 
-router.post("/owners", usersController.addOwner);
+router.post("/owners", usersController.addOwner); 
 
 router.post("/pilot/add", usersController.addPilotRole);
 

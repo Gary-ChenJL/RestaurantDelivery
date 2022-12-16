@@ -24,9 +24,9 @@ const addEmployee = async (req, res, next) => {
 
 const addPilotRole = async (req, res, next) => {
     let sql = `CALL add_pilot_role(?,?,?)`;
-    const { username, licenseID, experience} = req.body;
+    const { username, licenseID, pilot_experience} = req.body;
     console.log(username);
-    pool.query(sql, [username, licenseID, experience], (err, result) => {
+    pool.query(sql, [username, licenseID, pilot_experience], (err, result) => {
         if (err) return next(new Error(err.message));
         return res.status(201)
                   .json({ success: true });

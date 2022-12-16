@@ -1,6 +1,6 @@
 -- CS4400: Introduction to Database Systems (Fall 2022)
 -- Project Phase II: Database Schema SOLUTION [v2] Wednesday, November 30, 2022
-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'chen2001';
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '123456789';
 flush privileges;
 set global transaction isolation level serializable;
 set global SQL_MODE = 'ANSI,TRADITIONAL';
